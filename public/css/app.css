@@ -444,17 +444,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .flex {
   display: flex;
 }
-.w-8 {
-  width: 2rem;
-}
-.w-8\/12 {
-  width: 66.666667%;
-}
 .w-6\/12 {
   width: 50%;
 }
 .w-full {
   width: 100%;
+}
+.w-8\/12 {
+  width: 66.666667%;
 }
 .items-center {
   align-items: center;
@@ -465,14 +462,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .justify-between {
   justify-content: space-between;
 }
-.rounded {
-  border-radius: 0.25rem;
-}
 .rounded-lg {
   border-radius: 0.5rem;
 }
-.border {
-  border-width: 1px;
+.rounded {
+  border-radius: 0.25rem;
 }
 .border-2 {
   border-width: 2px;
@@ -481,13 +475,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
-.bg-gray-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 .bg-blue-500 {
   --tw-bg-opacity: 1;
@@ -496,11 +490,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-6 {
   padding: 1.5rem;
 }
-.p-3 {
-  padding: 0.75rem;
-}
 .p-4 {
   padding: 1rem;
+}
+.p-3 {
+  padding: 0.75rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -510,17 +504,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
-.pt-4 {
-  padding-top: 1rem;
-}
-.pb-4 {
-  padding-bottom: 1rem;
-}
 .pt-7 {
   padding-top: 1.75rem;
-}
-.pb-7 {
-  padding-bottom: 1.75rem;
 }
 .text-sm {
   font-size: 0.875rem;
@@ -529,11 +514,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .font-medium {
   font-weight: 500;
 }
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
