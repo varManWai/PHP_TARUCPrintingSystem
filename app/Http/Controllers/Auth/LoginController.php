@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
+class LoginController extends Controller
 {
     public function __construct()
     {
@@ -15,7 +15,7 @@ class RegisterController extends Controller
     }
 
     public function index(){
-        return view('auth.register');
+        return view('auth.login');
     }
 
     public function store(Request $request){
