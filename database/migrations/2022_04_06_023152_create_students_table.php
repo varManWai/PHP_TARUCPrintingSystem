@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
             
             $table->enum('accStatus', ['Activated', 'Deactivated']);;
-            $table->foreignId('programmeID')->constrained('programme');
+            $table->foreignId('programmeId')->constrained('programme');
         });
     }
 
