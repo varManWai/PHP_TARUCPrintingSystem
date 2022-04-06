@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('Suppliers', function (Blueprint $table) {
-            $table->bigIncrements('supplierID');
+            $table->increments('supplierID');
             $table->string('name');
             $table->string('phoneNo')->nullable();
             $table->string('email')->unique();
