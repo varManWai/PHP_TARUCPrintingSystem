@@ -17,3 +17,11 @@ Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 Route::get('/', function () {
     return view('components.index');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
