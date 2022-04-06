@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Order', function (Blueprint $table) {
-            $table->bigIncrements('orderID');
+            $table->increments('orderID');
             $table->double('totalPrice', 8, 2);
             $table->date('date');
             $table->string('status',50);
