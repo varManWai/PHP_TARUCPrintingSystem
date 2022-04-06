@@ -17,12 +17,8 @@ class OrderController extends Controller
     }
 
     public function addCart(){
-        
-        $orderFacade = new OrderFacade();
 
-        $test = $orderFacade->returnTest();
-
-        return view('orders.index')->with('test',$test);
+        return redirect()->back();
     }
 
     
@@ -38,11 +34,6 @@ class OrderFacade{
         $this->payment = new Payment();
         $this->createOrder = new CreateOrder();
     }
-
-    public function returnTest(){
-        $test = $this->cart->test();
-        return $test;
-    }
     
 
 }
@@ -57,17 +48,25 @@ class Payment{
 
 class Cart{
     
-    function createUserCart($userID){
-        
+    function createUserCart($studentID){
+        $cartID = DB::table('cart')->insertGetId(
+            ['studentID' => $studentID ]
+        );
+        return $cartID;
     }
 
-    function test(){
-        $test = "test";
-        return $test;
-    }
+    function addSubjectCart($cartID,$subjectID,$studentID){
+        $cartID = DB::table('cart')
+        ->select('cartID')
+        ->where('studentID','=',$studentID)
+        ->get();
 
-    function addSubjectCart($cartID,$subjectID){
+        if($cartID == NULL){
+            $cartID = createUserCart($studentID);
+        }
+
         
+
     }
 
     function deleteCart(){

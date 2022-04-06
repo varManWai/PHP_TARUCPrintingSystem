@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('Students', function (Blueprint $table) {
-            $table->increments('studentID');
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->string('phoneNo')->nullable();
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phoneNo')->nullable();
+            $table->rememberToken();
             $table->timestamps();
             
-            $table->enum('accStatus', ['Activated', 'Deactivated']);;
-            // $table->foreignId('programmeID')->constrained('Programme');
+
             $table->unsignedInteger('programmeID');
             $table->foreign('programmeID')->references('programmeID')->on('Programme');
         });
@@ -35,8 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
-            Schema::dropIfExists('Students');
-        });
+        Schema::dropIfExists('users');
     }
 };

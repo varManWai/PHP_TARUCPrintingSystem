@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('Cart', function (Blueprint $table) {
-            $table->increments('cartID');
-            // $table->foreignId('studentID')->constrained('Students');
-            // $table->unsignedInteger('userID');
-            // $table->foreign('userID')->references('id')->on('users');
-
-
-            $table->foreignId('userID')->constrained('users');
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Cart');
+        Schema::dropIfExists('password_resets');
     }
 };
