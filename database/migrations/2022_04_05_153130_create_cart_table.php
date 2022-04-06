@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Cart', function (Blueprint $table) {
-            $table->bigIncrements('CartID');
-            $table->foreignId('UserID')->constrained('User');
+            $table->bigIncrements('cartID');
+            $table->foreignId('userID')->constrained('User');
         });
     }
 
