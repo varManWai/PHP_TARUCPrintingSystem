@@ -32,7 +32,7 @@ class ReportController extends Controller
                 $NumberOfSales++;
             }
         }
-        return view('report.print')->with('order',$data)->with('date',$NumberOfSales);
+        return view('report.print')->with('order',$data)->with('date',$NumberOfSales)->with('type',0);
     }
 
     public function generateMonthly(){
@@ -55,7 +55,7 @@ class ReportController extends Controller
                 $NumberOfSales++;
             }
         }
-        return view('report.print')->with('order',$data)->with('date',$NumberOfSales);
+        return view('report.print')->with('order',$data)->with('date',$NumberOfSales)->with('type',1);
     }
 
     public function generateYearly(){
@@ -78,7 +78,7 @@ class ReportController extends Controller
                 $NumberOfSales++;
             }
         }
-        return view('report.print')->with('order',$data)->with('date',$yearDB);
+        return view('report.print')->with('order',$data)->with('date',$yearDB)->with('type',2);
     }
 
 }

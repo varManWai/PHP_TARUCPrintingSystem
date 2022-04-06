@@ -10,6 +10,17 @@
 
             @endforeach
             <p>{{$date}}</p>
+            @if ($type==0)
+                <p>daily</p>
+            @endif
+
+            @if ($type==1)
+                <p>Monthly</p>
+            @endif
+
+            @if ($type==2)
+                <p>Yearly</p>
+            @endif
         </div>
     </div>
 </div>
