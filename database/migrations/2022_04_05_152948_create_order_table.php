@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('status',50);
             $table->string('pickUpMethod',50);
-            $table->foreignId('userID')->constrained('User');
+            $table->foreignId('studentID')->constrained('Students');
         });
     }
 
