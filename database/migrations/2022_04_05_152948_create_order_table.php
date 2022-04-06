@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('status',50);
             $table->string('pickUpMethod',50);
             // $table->foreignId('studentID')->constrained('Students');
-            $table->unsignedInteger('studentID');
-            $table->foreign('studentID')->references('studentID')->on('Students');
+            // $table->unsignedInteger('userID');
+            // $table->foreign('userID')->references('id')->on('users');
+
+            $table->foreignId('userID')->constrained('users');
         });
     }
 

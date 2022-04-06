@@ -61,9 +61,39 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="phoneNo" class="col-md-4 col-form-label text-md-end">{{ __('PhoneNo') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phoneNo" type="phoneNo" class="form-control @error('phoneNo') is-invalid @enderror" name="phoneNo" required autocomplete="new-password">
+
+                                @error('phoneNo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="programmeID" class="col-md-4 col-form-label text-md-end">{{ __('ProgrammeID') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="programmeID" type="programmeID" class="form-control @error('programmeID') is-invalid @enderror" name="programmeID" required autocomplete="new-password">
+
+                                @error('programmeID')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-dark" >
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>

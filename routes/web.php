@@ -20,6 +20,13 @@ Route::get('/', function () {
 });
 
 
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
 Route::get('/123', function () {
     return view('report.report');
 });
@@ -27,3 +34,4 @@ Route::get('/123', function () {
 route::post('/generateDaily',[ReportController::class,'generateDaily'])->name('generateDaily');
 route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->name('generateMonthly');
 route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
+
