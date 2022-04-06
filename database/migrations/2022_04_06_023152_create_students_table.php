@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->increments('studentId');
+        Schema::table('Students', function (Blueprint $table) {
+            $table->increments('studentID');
             $table->string('name');
             $table->string('phoneNo')->nullable();
             $table->string('email')->unique();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
             
             $table->enum('accStatus', ['Activated', 'Deactivated']);;
-            $table->foreignId('programmeId')->constrained('programme');
+            $table->foreignId('programmeID')->constrained('programme');
         });
     }
 

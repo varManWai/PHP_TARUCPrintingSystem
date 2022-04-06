@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->bigIncrements('adminId');
+        Schema::table('Admins', function (Blueprint $table) {
+            $table->bigIncrements('adminID');
             $table->string('name');
             $table->string('phoneNo')->nullable();
             $table->string('email')->unique();

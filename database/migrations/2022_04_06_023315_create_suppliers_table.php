@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('suppliers', function (Blueprint $table) {
-            $table->bigIncrements('supplierId');
+        Schema::table('Suppliers', function (Blueprint $table) {
+            $table->bigIncrements('supplierID');
             $table->string('name');
             $table->string('phoneNo')->nullable();
             $table->string('email')->unique();
