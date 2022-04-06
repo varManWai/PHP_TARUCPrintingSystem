@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('Students', function (Blueprint $table) {
+        Schema::create('Students', function (Blueprint $table) {
             $table->increments('studentID');
             $table->string('name');
             $table->string('phoneNo')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             
             $table->enum('accStatus', ['Activated', 'Deactivated']);;
             // $table->foreignId('programmeID')->constrained('Programme');
-            $table->integer('programmeID');
+            $table->unsignedInteger('programmeID');
             $table->foreign('programmeID')->references('programmeID')->on('Programme');
         });
     }
@@ -36,7 +36,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-            //
+            Schema::dropIfExists('Students');
         });
     }
 };

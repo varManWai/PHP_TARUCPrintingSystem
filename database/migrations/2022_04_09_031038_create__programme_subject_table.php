@@ -17,8 +17,8 @@ return new class extends Migration
             // $table->foreignId('programmeID')->constrained('Programme');
             // $table->foreignId('subjectID')->constrained('Subject');
             
-            $table->integer('programmeID');
-            $table->integer('subjectID');
+            $table->unsignedInteger('programmeID');
+            $table->unsignedInteger('subjectID');
             $table->foreign('programmeID')->references('programmeID')->on('Programme');
             $table->foreign('subjectID')->references('subjectID')->on('Subject');
 

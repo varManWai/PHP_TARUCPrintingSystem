@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('Order_Subject', function (Blueprint $table) {
             // $table->foreignId('orderID')->constrained('Order');
             // $table->foreignId('subjectID')->constrained('Subject');
-            $table->integer('orderID');
-            $table->integer('subjectID');
+            $table->unsignedInteger('orderID');
+            $table->unsignedInteger('subjectID');
             $table->foreign('orderID')->references('orderID')->on('Order');
             $table->foreign('subjectID')->references('subjectID')->on('Subject');
         });

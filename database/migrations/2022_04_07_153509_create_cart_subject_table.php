@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('Cart_Subject', function (Blueprint $table) {
             // $table->foreignId('cartID')->constrained('Cart');
             // $table->foreignId('subjectID')->constrained('Subject');
-            $table->integer('cartID');
-            $table->integer('subjectID');
+            $table->unsignedInteger('cartID');
+            $table->unsignedInteger('subjectID');
             $table->foreign('cartID')->references('cartID')->on('Cart');
             $table->foreign('subjectID')->references('subjectID')->on('Subject');
         });
