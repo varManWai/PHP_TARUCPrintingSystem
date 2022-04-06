@@ -3,7 +3,9 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ReportController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -13,8 +15,10 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'index']) -> name('login');
 Route::post('/login', [LoginController::class, 'store']);
 Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard');
-
+Route::get('/faculty',[FacultyController::class, 'index']) -> name('addFaculty');
+Route::post('/faculty',[FacultyController::class,'store']);
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');
+
 Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 
 
