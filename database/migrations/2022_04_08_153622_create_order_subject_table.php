@@ -18,6 +18,7 @@ return new class extends Migration
             // $table->foreignId('subjectID')->constrained('Subject');
             $table->unsignedInteger('orderID');
             $table->unsignedInteger('subjectID');
+            $table->integer('Quantity');
             $table->foreign('orderID')->references('orderID')->on('Order');
             $table->foreign('subjectID')->references('subjectID')->on('Subject');
         });
