@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Micheal Jackson" >
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="example@gmail.com">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -65,7 +65,7 @@
                             <label for="phoneNo" class="col-md-4 col-form-label text-md-end">{{ __('PhoneNo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phoneNo" type="phoneNo" class="form-control @error('phoneNo') is-invalid @enderror" name="phoneNo" required autocomplete="new-password">
+                                <input id="phoneNo" type="phoneNo" class="form-control @error('phoneNo') is-invalid @enderror" name="phoneNo" value="{{ old('phoneNo') }}" required autocomplete="phoneNo" placeholder="01X-XXXXXXX">
 
                                 @error('phoneNo')
                                     <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
                             <label for="programmeID" class="col-md-4 col-form-label text-md-end">{{ __('ProgrammeID') }}</label>
 
                             <div class="col-md-6">
-                                <input id="programmeID" type="programmeID" class="form-control @error('programmeID') is-invalid @enderror" name="programmeID" required autocomplete="new-password">
+                                <input id="programmeID" type="programmeID" class="form-control @error('programmeID') is-invalid @enderror" name="programmeID" value="{{ old('programmeID') }}" required autocomplete="programmeID" >
 
                                 @error('programmeID')
                                     <span class="invalid-feedback" role="alert">

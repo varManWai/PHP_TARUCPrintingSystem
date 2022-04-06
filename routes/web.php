@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/register', [RegisterController::class, 'index']) -> name('register');
 Route::post('/register', [RegisterController::class, 'store']);
@@ -23,8 +23,6 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 
 
 Route::get('/123', function () {
