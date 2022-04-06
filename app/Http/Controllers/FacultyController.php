@@ -1,6 +1,26 @@
 <?php
 
-class Faculty 
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class FacultyController extends Controller
+{
+    public function index(){
+        return view('admin.addFaculty')->with('facName', 'string' );
+    }
+    
+    public function store(Request $request){
+
+        $name = $request->input('name');
+        $facultyInstance = Faculty::getInstance("null",$name);
+   
+        
+        
+    }
+}
+
+class Faculty
 {
     private $facultyID;
     private $name;
