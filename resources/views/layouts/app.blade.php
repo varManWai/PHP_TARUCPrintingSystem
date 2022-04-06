@@ -60,9 +60,9 @@
                                 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('editUser') }}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('editUser') }}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ __('EditUser') }}
-                                    </a>
+                                    </a> --}}
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
