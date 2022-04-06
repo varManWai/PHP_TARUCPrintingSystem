@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Order', function (Blueprint $table) {
-            $table->bigIncrements('OrderID');
-            $table->double('TotalPrice', 8, 2);
-            $table->date('Date');
-            $table->string('Status',50);
-            $table->string('PickUpMethod',50);
-            $table->foreignId('UserID')->constrained('User');
+            $table->bigIncrements('orderID');
+            $table->double('totalPrice', 8, 2);
+            $table->date('date');
+            $table->string('status',50);
+            $table->string('pickUpMethod',50);
+            $table->foreignId('userID')->constrained('User');
         });
     }
 

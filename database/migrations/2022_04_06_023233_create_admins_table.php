@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('base_accs', function (Blueprint $table) {
-            $table->id();
+        Schema::table('Admins', function (Blueprint $table) {
+            $table->increments('adminID');
             $table->string('name');
-            $table->string('email');
+            $table->string('phoneNo')->nullable();
+            $table->string('email')->unique();
             $table->string('password');
-            $table->string('programmeID');
-            $table->string('accStatus');
             $table->timestamps();
         });
     }
@@ -31,6 +30,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('base_accs');
+        Schema::table('admins', function (Blueprint $table) {
+            //
+        });
     }
 };
