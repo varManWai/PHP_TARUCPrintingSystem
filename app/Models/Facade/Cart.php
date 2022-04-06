@@ -2,4 +2,7 @@
 
 class Cart{
     
+    public function AddCart(){
+        
+    }
 }
