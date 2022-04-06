@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,3 +18,12 @@ Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 Route::get('/', function () {
     return view('components.index');
 });
+
+
+Route::get('/123', function () {
+    return view('report.report');
+});
+
+route::post('/generateDaily',[ReportController::class,'generateDaily'])->name('generateDaily');
+route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->name('generateMonthly');
+route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
