@@ -1,14 +1,16 @@
 <?php
-use App\Http\Controllers\Admin\UsersController;
+
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
 
 
 //Do not required auth
@@ -23,9 +25,6 @@ Auth::routes();
 
 
 //USER
-//Dashboard
-Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard');
-
 //Faculty
 Route::get('/faculty',[FacultyController::class, 'index']) -> name('addFaculty');
 Route::post('/faculty',[FacultyController::class,'store']);
@@ -34,8 +33,10 @@ Route::post('/faculty',[FacultyController::class,'store']);
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');
 Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 
+//User Information
+Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
+
 //Home Page
-// Route::get('/editUser', [UserController::class, 'edit'])->name('editUser');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/',[HomeController::class, 'index']);
 
@@ -49,5 +50,6 @@ Route::post('/generateDaily',[ReportController::class,'generateDaily'])->name('g
 Route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->name('generateMonthly');
 Route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
 
-
+//User Dashboard
+Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard');
 
