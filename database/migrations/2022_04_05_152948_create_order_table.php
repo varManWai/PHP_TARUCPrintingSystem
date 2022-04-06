@@ -19,7 +19,9 @@ return new class extends Migration
             $table->date('date');
             $table->string('status',50);
             $table->string('pickUpMethod',50);
-            $table->foreignId('studentID')->constrained('Students');
+            // $table->foreignId('studentID')->constrained('Students');
+            $table->integer('studentID');
+            $table->foreign('studentID')->references('studentID')->on('Students');
         });
     }
 

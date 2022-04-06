@@ -16,8 +16,11 @@ return new class extends Migration
         Schema::create('Programme', function (Blueprint $table) {
             $table->increments('programmeID');
             $table->string('name');
-            $table->foreignId('facultyID')->constrained('Faculty');
+            // $table->foreignId('facultyID')->constrained('Faculty');
             $table->timestamps();
+            $table->integer('facultyID');
+            $table->foreign('facultyID')->references('facultyID')->on('Faculty');
+
         });
     }
 

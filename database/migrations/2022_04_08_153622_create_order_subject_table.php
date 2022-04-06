@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Order_Subject', function (Blueprint $table) {
-            $table->foreignId('orderID')->constrained('Order');
-            $table->foreignId('subjectID')->constrained('Subject');
+            // $table->foreignId('orderID')->constrained('Order');
+            // $table->foreignId('subjectID')->constrained('Subject');
+            $table->integer('orderID');
+            $table->integer('subjectID');
+            $table->foreign('orderID')->references('orderID')->on('Order');
+            $table->foreign('subjectID')->references('subjectID')->on('Subject');
         });
     }
 
