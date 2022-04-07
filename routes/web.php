@@ -54,6 +54,9 @@ Route::get('/',[HomeController::class, 'index']);
 Route::get('/123', function () {
     return view('report.report');
 });
+Route::get('/generateDaily',[ReportController::class,'generateDaily'])->name('generateDaily');
+Route::get('/generateMonthly',[ReportController::class,'generateMonthly'])->name('generateMonthly');
+Route::get('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
 Route::post('/generateDaily',[ReportController::class,'generateDaily'])->name('generateDaily');
 Route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->name('generateMonthly');
 Route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
