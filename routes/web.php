@@ -44,6 +44,8 @@ Route::post('/order', [OrderController::class, 'addCart'])->name('AddCart');
 
 //Cart
 Route::get('/cart', [OrderController::class, 'cartIndex'])->name('Cart');
+Route::post('/cartAdd',[OrderController::class,'addCartFromCart'])->name('addCartFromCart');
+Route::post('/cartReduce',[OrderController::class,'reduceCart'])->name('reduceCart');
 
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');

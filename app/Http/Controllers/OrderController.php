@@ -58,6 +58,29 @@ class OrderController extends Controller
             return view('orders.noUser');
         }
         $id = Auth::user()->id;
+        $subjectID = $this->findSubjectId($id);
+        return view('orders.cart')->with('subjectID',$subjectID);
+    }
+
+    public function addCartFromCart(Request $request){
+        $id = Auth::user()->id;
+        $orderFacade = new OrderFacade;
+        $success = $orderFacade->insertCart($request->input('subjectID'),$id);
+
+        $subjectID = $this->findSubjectId($id);
+        return view('orders.cart')->with('subjectID',$subjectID);
+    }
+
+    public function reduceCart(Request $request){
+        $id = Auth::user()->id;
+        $orderFacade = new OrderFacade;
+        $success = $orderFacade->minusCart($request->input('subjectID'),$id);
+
+        $subjectID = $this->findSubjectId($id);
+        return view('orders.cart')->with('subjectID',$subjectID);
+    }
+
+    function findSubjectId($id){
 
         $cartID = cart::select('cartID')
         ->where('userID',$id)
@@ -69,9 +92,7 @@ class OrderController extends Controller
         ->where('cartID','=',$cartID['cartID'])
         ->get()
         ->toArray();
-
-        // dd($subjectID);
-        return view('orders.cart')->with('subjectID',$subjectID);
+        return $subjectID;
     }
     
     
@@ -90,6 +111,11 @@ class OrderFacade{
     
     public function insertCart($subjectID,$id){
         $success = $this->createCart->addSubjectCart($subjectID,$id);
+        return $success;
+    }
+
+    public function minusCart($subjectID,$id){
+        $success = $this->createCart->minusCart($subjectID,$id);
         return $success;
     }
     
@@ -180,11 +206,14 @@ class createCart{
 
         $Qty = $checkQty[0]->Quantity;
 
-        if($Qty->isEmpty()){
+        if(empty($Qty)){
             DB::table('cart_subject')
             ->where('cartID','=',$cartID)
             ->where('subjectID','=',$subjectID)
             ->delete();
+            return $success = 'Subject removed';
         }
+
+        return $success = 'Subject reduced';
     }
 }
