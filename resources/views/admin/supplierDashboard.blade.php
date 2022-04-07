@@ -7,10 +7,13 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 ">
                         <div class="card mt-3">
+                            <a href="{{ route('addSupplierAccount') }}" class="btn btn-dark"> Add New User</a>
+                        </div>
+                        <div class="card mt-3">
 
 
 
-                            <div class="card-header ">Users Account Management</div>
+                            <div class="card-header ">Suppliers Account Management</div>
 
                             <div class="card-body table-responsive-xl">
                                 @if (count($users) == 0)
@@ -23,8 +26,8 @@
                                                 <th scope="col" class="">Name</th>
                                                 <th scope="col" class="">Email</th>
                                                 <th scope="col" class="">Phone No.</th>
-                                                <th scope="col" class="">Created At</th>
-                                                <th scope="col" class="">Programme</th>
+                                                <th scope="col" class="">Shop Name</th>
+                                                <th scope="col" class="">Location</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -49,14 +52,16 @@
                                                         {{ $user->created_at }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->programmeName }}
+                                                        {{ $user->shopName }}
                                                     </td>
                                                     <td class="">
-
-                                                        <a href="\editUserAccount\{{$user->id}}" class="btn btn-primary">Edit</a>
+                                                        {{ $user->location }}
                                                     </td>
                                                     <td class="">
-                                                        <a href="\deleteUserAccount\{{ $user->id }}" class="btn btn-danger">Delete</a>
+                                                        <a href="\editSupplierAccount\{{$user->id}}" class="btn btn-primary">Edit</a>
+                                                    </td>
+                                                    <td class="">
+                                                        <a href="\deleteSupplierAccoun\{{$user->id}}" class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>
                                                 @php

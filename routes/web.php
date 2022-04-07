@@ -10,7 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SubjectController;
-
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -85,4 +85,19 @@ Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->n
 Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
 
 //User Dashboard
-Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/usersDashboard', [AdminController::class, 'index'])->name('usersDashboard');
+Route::get('/editUserAccount/{id}', [AdminController::class, 'editUser'])->name('editUserAccount');
+Route::get('/deleteUserAccount/{id}', [AdminController::class, 'deleteUser'])->name('deleteUserAccount');
+Route::post('/editUserName', [AdminController::class, 'editUserName'])->name('editUserName');
+Route::post('/editUserEmail', [AdminController::class, 'editUserEmail'])->name('editUserEmail');
+Route::post('/editUserPassword', [AdminController::class, 'editUserPassword'])->name('editUserPassword');
+Route::post('/editUserPhoneNo', [AdminController::class, 'editUserPhoneNo'])->name('editUserPhoneNo');
+Route::post('/editUserProgrammeID', [AdminController::class, 'editUserProgrammeID'])->name('editUserProgrammeID');
+
+//Supplier Dashboard
+Route::get('/suppliersDashboard', [SupplierController::class, 'index'])->name('suppliersDashboard');
+Route::get('/addSupplierAccount', [SupplierController::class, 'index'])->name('addSupplierAccount');
+// Route::get('/editSupplierAccount/{id}', [AdminController::class, 'index'])->name('editSupplierAccount');
+// Route::get('/deleteSupplierAccoun/{id}', [AdminController::class, 'index'])->name('deleteSupplierAccount');
+
+

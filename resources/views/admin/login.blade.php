@@ -76,6 +76,14 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <hr>
+
+                            <div class="row mb-0 " style="border: red 2px solid">
+                                <div class="col-md-2 offset-md-5" style="border: red 2px solid">
+                                    <a href="{{ route('login') }}" style="text-align: center">Are you a student?</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

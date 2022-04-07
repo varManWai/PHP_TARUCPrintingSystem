@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-class AdminController extends Controller
+class SupplierController extends Controller
 {
     public function __construct()
     {
@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function index()
     {
 
-        $users = DB::table('users')->join('programme', 'users.programmeID','=','programme.programmeID') ->select('users.*', 'programme.name AS programmeName')->get();
+        $users = DB::table('suppliers')->select('*')->get();
         // $programmeID = DB::table('users')
         // ->select('programmeID')
         // ->where('id','=',$id)
@@ -30,7 +30,7 @@ class AdminController extends Controller
         // dd($programmes);
         
 
-        return view('admin.usersDashboard')->with('users',$users);
+        return view('admin.supplierDashboard')->with('users',$users);
 
     }
 

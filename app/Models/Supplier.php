@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Programme extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
-
-    protected $table = 'programme';
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,11 @@ class Programme extends Model
      */
     protected $fillable = [
         'name',
-        'faultyID',
+        'email',
+        'password',
+        'phoneNo',
+        'shopName',
+        'location',
     ];
 
     /**
@@ -27,7 +32,8 @@ class Programme extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        
+        'password',
+        'remember_token',
         
     ];
 
@@ -37,6 +43,6 @@ class Programme extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        
+        'email_verified_at' => 'datetime',
     ];
 }
