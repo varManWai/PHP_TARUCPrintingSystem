@@ -10,7 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\SubjectController;
-
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -94,8 +94,10 @@ Route::post('/editUserPassword', [AdminController::class, 'editUserPassword'])->
 Route::post('/editUserPhoneNo', [AdminController::class, 'editUserPhoneNo'])->name('editUserPhoneNo');
 Route::post('/editUserProgrammeID', [AdminController::class, 'editUserProgrammeID'])->name('editUserProgrammeID');
 
-
-Route::get('/suppliersDashboard', [AdminController::class, 'index'])->name('suppliersDashboard');
-Route::get('/addSupplierAccount', [AdminController::class, 'index'])->name('addSupplierAccount');
+//Supplier Dashboard
+Route::get('/suppliersDashboard', [SupplierController::class, 'index'])->name('suppliersDashboard');
+Route::get('/addSupplierAccount', [SupplierController::class, 'index'])->name('addSupplierAccount');
 // Route::get('/editSupplierAccount/{id}', [AdminController::class, 'index'])->name('editSupplierAccount');
 // Route::get('/deleteSupplierAccoun/{id}', [AdminController::class, 'index'])->name('deleteSupplierAccount');
+
+

@@ -26,8 +26,8 @@
                                                 <th scope="col" class="">Name</th>
                                                 <th scope="col" class="">Email</th>
                                                 <th scope="col" class="">Phone No.</th>
-                                                <th scope="col" class="">Created At</th>
-                                                <th scope="col" class="">Programme</th>
+                                                <th scope="col" class="">Shop Name</th>
+                                                <th scope="col" class="">Location</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -52,7 +52,10 @@
                                                         {{ $user->created_at }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->programmeName }}
+                                                        {{ $user->shopName }}
+                                                    </td>
+                                                    <td class="">
+                                                        {{ $user->location }}
                                                     </td>
                                                     <td class="">
                                                         <a href="\editSupplierAccount\{{$user->id}}" class="btn btn-primary">Edit</a>
