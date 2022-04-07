@@ -9,10 +9,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\SubjectController;
+
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 //USER
 //Do not required auth
@@ -37,6 +38,10 @@ Route::post('/addfaculty', [FacultyController::class, 'store']);
 //Programme
 Route::get('/addprogramme', [ProgrammeController::class, 'index'])->name('addProgramme');
 Route::post('/addprogramme', [ProgrammeController::class, 'store']);
+
+//Subject
+Route::get('/addsubject',[SubjectController::class, 'index']) -> name('addSubject');
+Route::post('/addsubject',[SubjectController::class,'store']);
 
 //Order
 Route::get('/order', [OrderController::class, 'index'])->name('Order');
