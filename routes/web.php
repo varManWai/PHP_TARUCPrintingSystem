@@ -9,6 +9,7 @@ use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\SubjectController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,10 @@ Route::post('/addfaculty',[FacultyController::class,'store']);
 //Programme
 Route::get('/addprogramme',[ProgrammeController::class, 'index']) -> name('addProgramme');
 Route::post('/addprogramme',[ProgrammeController::class,'store']);
+
+//Subject
+Route::get('/addsubject',[SubjectController::class, 'index']) -> name('addSubject');
+Route::post('/addsubject',[SubjectController::class,'store']);
 
 //Order
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');

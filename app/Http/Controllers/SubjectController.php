@@ -1,5 +1,29 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use \PDO;
+
+class SubjectController 
+{
+    public function index(){
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+        $stmt = $pdo->prepare("SELECT * from programme");
+        $stmt->execute();
+        $programmeArr;
+        while($row =  $stmt->fetch()){
+            $programmeArr[$row['programmeID']] = $row['name'];
+        }
+        return view('admin.addSubject')->with('programmes',$programmeArr);
+    }
+    
+    public function store(Request $request){
+
+    }
+
+}
+
 class SubjectDetails
 {
     private $subjectID;
@@ -8,6 +32,7 @@ class SubjectDetails
     private $page;
     private $price;
     private $image;
+    private static $instance = null;
 
     private function __construct($subjectID, $courseCode, $title, $page, $price, $image)
     {
@@ -19,6 +44,7 @@ class SubjectDetails
         $this->image = $image;
     }
 
+    // singleton
     public static function getInstance($subjectID, $courseCode, $title, $page, $price, $image)
     {
         if (self::$instance == null)
