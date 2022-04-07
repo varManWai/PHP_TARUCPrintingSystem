@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProgrammeController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,12 @@ Route::get('/adminLogin', [AdminsController::class, 'index'])-> name('adminLogin
 Auth::routes();
 
 //Faculty
-Route::get('/faculty',[FacultyController::class, 'index']) -> name('addFaculty');
-Route::post('/faculty',[FacultyController::class,'store']);
+Route::get('/addfaculty',[FacultyController::class, 'index']) -> name('addFaculty');
+Route::post('/addfaculty',[FacultyController::class,'store']);
+
+//Programme
+Route::get('/addprogramme',[ProgrammeController::class, 'index']) -> name('addProgramme');
+Route::post('/addprogramme',[ProgrammeController::class,'store']);
 
 //Order
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');
