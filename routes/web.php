@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FacultyController;
@@ -21,8 +21,10 @@ Route::post('/login', [LoginController::class, 'store']);
 
 //ADMIN
 //Do not required auth
-Route::get('/adminLogin', [AdminsController::class, 'index'])-> name('adminLogin');
+Route::get('/adminLogin', [AdminLoginController::class, 'index'])-> name('adminLogin');
+Route::post('/adminLogin', [AdminLoginController::class, 'store']);
 
+//USER
 //Required auth
 Auth::routes();
 
@@ -59,5 +61,5 @@ Route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->nam
 Route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
 
 //User Dashboard
-Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard');
+Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard')->middleware('auth:admin');
 
