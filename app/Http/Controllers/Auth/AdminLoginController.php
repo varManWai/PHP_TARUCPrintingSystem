@@ -7,6 +7,8 @@ use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminLoginController extends Controller
 {
@@ -49,30 +51,23 @@ class AdminLoginController extends Controller
     public function store(Request $request)
     {
 
-        //VALIDATE INPUT
-        $this->validate($request, [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
+        // //VALIDATE INPUT
+        // $credentials = $this->validate($request, [
+        //     'email' => ['required', 'string', 'email', 'max:255'],
+        //     'password' => ['required', 'string', 'min:8'],
+        // ]);
 
+
+        // // $credentials['password'] = Hash::make(trim($request->password));
+        // $email = trim($request->password);
         // $pwd = Hash::make(trim($request->password));
-        $pwd = $request->password;
 
-        if(Admin::where('email', $request->email)->where('password', $pwd)->exists()){
-            $admin = Admin::where('email', $request->email)->where('password', $pwd); 
-            
-            
+        // // dd($pwd);
 
+        // if(!auth()->attempt($credentials)){
+        //     return back()->with('status','Invalid login details');
+        // }
 
-
-        }else{
-            dd('do not have this account');
-        }
-
-        
-
-       
-
-        // return view('admin.login');
+        // return redirect()->route('dashboard');
     }
 }

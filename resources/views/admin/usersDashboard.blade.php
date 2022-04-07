@@ -16,10 +16,10 @@
                             <div class="card-header ">User Account Management</div>
 
                             <div class="card-body table-responsive-xl">
-                                <% //if (users.length <=0) { %>
+                                {{ if ( count($users) == 0 ) { }}
                                 <h2>Nothing here</h2>
 
-                                <% //} else { %>
+                                {{  } else {  }}
                                 <table class="table  table-hover">
                                     <thead>
                                         <tr class="">
@@ -31,29 +31,45 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% //let i=1;
-                                                    //users.forEach(user=> { %>
-                                        // <tr class="">
-                                        //     <td class="">
-                                        //         <%= //i %>
-                                        //     </td>
-                                        //     <td class="">
-                                        //         <%= //String(user.name) %>
-                                        //     </td>
-                                        //     <td class="">
-                                        //         <%= //String(user.email) %>
-                                        //     </td>
-                                        //     <td class="">
-                                        //         <a href="/updateUser/<%= //user.id %>" class="btn btn-success">Edit</a>
-                                        //     </td>
-                                        //     <td class="">
-                                        //         <a href="/deleteUser/<%= //user.id %>" class="btn btn-danger">Delete</a>
-                                        //     </td>
-                                        // </tr>
-                                        <% //i++; }); %>
+                                        {{
+                                            $i = 0;
+                                            foreach ($users as $user) {
+                                            }}
+
+                                            <tr class="">
+                                            <td class="">
+                                                {{ $i }}
+                                            </td>
+                                            <td class="">
+                                                {{ $user->name }}
+                                            </td>
+                                            <td class="">
+                                                {{ $user->email }}
+                                            </td>
+                                            <td class="">
+                                                {{ $user->phoneNo }}
+                                            </td>
+                                            <td class="">
+                                                {{ $user->created_at }}
+                                            </td>
+                                            <td class="">
+                                                {{ $user->email }}
+                                            </td>
+                                            <td class="">
+                                                <a href="/updateUser/<%= //user.id %>" class="btn btn-success">Edit</a>
+                                            </td>
+                                            <td class="">
+                                                <a href="/deleteUser/<%= //user.id %>" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+
+                                            {{
+                                            }
+                                        }}
+                                        {{ i++; }}
                                     </tbody>
                                 </table>
-                                <% //} %>
+                                {{ } }}
                             </div>
                         </div>
                     </div>

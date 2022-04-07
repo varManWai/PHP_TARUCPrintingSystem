@@ -1,28 +1,28 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AdminLoginController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FacultyController;
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProgrammeController;
-
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 //USER
 //Do not required auth
-Route::get('/register', [RegisterController::class, 'index']) -> name('register');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
-Route::get('/login', [LoginController::class, 'index']) -> name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
 //ADMIN
 //Do not required auth
-Route::get('/adminLogin', [AdminLoginController::class, 'index'])-> name('adminLogin');
+Route::get('/adminLogin', [AdminLoginController::class, 'index'])->name('adminLogin');
 Route::post('/adminLogin', [AdminLoginController::class, 'store']);
 
 //USER
@@ -30,16 +30,16 @@ Route::post('/adminLogin', [AdminLoginController::class, 'store']);
 Auth::routes();
 
 //Faculty
-Route::get('/addfaculty',[FacultyController::class, 'index']) -> name('addFaculty');
-Route::post('/addfaculty',[FacultyController::class,'store']);
+Route::get('/addfaculty', [FacultyController::class, 'index'])->name('addFaculty');
+Route::post('/addfaculty', [FacultyController::class, 'store']);
 
 //Programme
-Route::get('/addprogramme',[ProgrammeController::class, 'index']) -> name('addProgramme');
-Route::post('/addprogramme',[ProgrammeController::class,'store']);
+Route::get('/addprogramme', [ProgrammeController::class, 'index'])->name('addProgramme');
+Route::post('/addprogramme', [ProgrammeController::class, 'store']);
 
 //Order
-Route::get('/order',[OrderController::class, 'index']) -> name('Order');
-Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
+Route::get('/order', [OrderController::class, 'index'])->name('Order');
+Route::post('/order', [OrderController::class, 'addCart'])->name('AddCart');
 
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
@@ -53,18 +53,16 @@ Route::post('/deleteAccount', [UsersController::class, 'deletedAccount'])->name(
 
 //Home Page
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/',[HomeController::class, 'index']);
-
+Route::get('/', [HomeController::class, 'index']);
 
 //ADMIN
 //Report
 Route::get('/123', function () {
     return view('report.report');
 });
-Route::post('/generateDaily',[ReportController::class,'generateDaily'])->name('generateDaily');
-Route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->name('generateMonthly');
-Route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
+Route::post('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
+Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
+Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
 
 //User Dashboard
-Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard')->middleware('auth:admin');
-
+Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
