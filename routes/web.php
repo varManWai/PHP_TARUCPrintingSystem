@@ -35,7 +35,13 @@ Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
-Route::post('/editUser', [UsersController::class, 'update']);
+Route::post('/editName', [UsersController::class, 'editName'])->name('editName');
+Route::post('/editEmail', [UsersController::class, 'editEmail'])->name('editEmail');
+Route::post('/editPassword', [UsersController::class, 'editPassword'])->name('editPassword');
+Route::post('/editPhoneNo', [UsersController::class, 'editPhoneNo'])->name('editPhoneNo');
+Route::post('/editProgrammeID', [UsersController::class, 'editProgrammeID'])->name('editProgrammeID');
+Route::get('/deleteAccount', [UsersController::class, 'deleteAccount'])->name('deleteAccount');
+Route::post('/deleteAccount', [UsersController::class, 'deletedAccount'])->name('deletedAccount');
 
 //Home Page
 Route::get('/home', [HomeController::class, 'index'])->name('home');
