@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \PDO;
 
-class FacultyController extends Controller
+class FacultyController 
 {
     public function index(){
-        return view('admin.addFaculty')->with('results', 'Welcome to this page' );
+        return view('admin.addFaculty');
     }
     
     public function store(Request $request){
 
-        // instantiate faculty
         $name = $request->input('name');
+        // instantiate faculty
         $facultyInstance = Faculty::getInstance("null",$name);
 
         $facultyID = $facultyInstance->getFacultyID();
@@ -23,21 +23,15 @@ class FacultyController extends Controller
         //Connect to the MySQL database using the PDO object.
         $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
 
-        // //Serialize the object into a string value that we can store in our database.
-        // $serializedObject = serialize($facultyInstance);
-
-        //Prepare our INSERT SQL statement.
         $stmt = $pdo->prepare("INSERT INTO faculty (facultyID, name) VALUES (:facultyID, :name)");
         $stmt->bindParam('facultyID',  $facultyID);
         $stmt->bindParam('name', $facultyName);
-
-        //Execute the statement and insert our serializsed object string.
-        if($stmt->execute()){
-            return view('admin.addFaculty')->with('results', 'Faculty has been added' );
-        }else {
-            return view('admin.addFaculty')->with('results', 'Try again' );
-        }
         
+        if($stmt->execute()){            
+            return redirect()->back()->withErrors(['message' => 'Faculty has been added']);
+        }else {
+            return redirect()->back()->withErrors(['message' => 'Try again']);
+        }                
     }
 }
 
@@ -53,6 +47,7 @@ class Faculty
         $this->name = $name;
     }
 
+    // singleton
     public static function getInstance($facultyID, $name)
     {
         if (self::$instance == null)

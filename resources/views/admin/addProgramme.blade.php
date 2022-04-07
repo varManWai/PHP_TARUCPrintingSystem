@@ -9,12 +9,19 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('addProgramme') }}">
                         @csrf
+                        
+                        <div class="col-md-10 ">
+                            @if($errors->any())
+                                <p class="text-center">{{$errors->first()}}</p>
+                            @endif                                                     
+                        </div>
+                       
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="email" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -22,14 +29,18 @@
                                 @enderror
                             </div>
                         </div>
-
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         <div class="row mb-3">
                             <label for="faculty" class="col-md-4 col-form-label text-md-end">{{ __('Faculty') }}</label>
                        
                             <div class="col-md-6">
                                 @foreach ($faculties as $faculty => $faculty_name )
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="{{$faculty}}" name="optradio" value="{{$faculty}} ">{{ $faculty_name }}         
+                                    <input type="radio" class="form-check-input" id="{{$faculty}}" name="facultyID" value="{{$faculty}}">{{ $faculty_name }}         
                                     <label class="form-check-label" for="radio{{$faculty}}"></label>                          
                                 </div>                                
                                 @endforeach

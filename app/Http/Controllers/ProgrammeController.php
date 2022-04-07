@@ -6,24 +6,45 @@ use Illuminate\Http\Request;
 use \PDO;
 
 class ProgrammeController 
-{
+{   
+
     public function index(){
         
         $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
-
         $stmt = $pdo->prepare("SELECT * from faculty");
         $stmt->execute();
         $facultyArr;
         while($row =  $stmt->fetch()){
             $facultyArr[$row['facultyID']] = $row['name'];
         }
-
         return view('admin.addProgramme')->with('faculties',$facultyArr);
     }
-    
-    public function store(Request $request){
 
-        return view('admin.addProgramme');
+    public function store(Request $request){       
+
+        $name = $request->input('name');
+        $facultyID = $request->input('facultyID');
+        // instantiate programme
+        $programmeInstance = Programme::getInstance("null",$name,$facultyID);
+
+        $programmeID = $programmeInstance->getProgrammeID();
+        $programmeName = $programmeInstance->getName();
+        $faculty = $programmeInstance->getFaculty();
+        
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $stmt = $pdo->prepare("INSERT INTO programme (programmeID, name, facultyID) VALUES (:programmeID, :name, :facultyID)");
+        $stmt->bindParam('programmeID',  $programmeID);
+        $stmt->bindParam('name', $programmeName);
+        $stmt->bindParam('facultyID',  $faculty);
+
+        
+        if($stmt->execute()){
+            return redirect()->back()->withErrors(['message' => 'Programme has been added']);
+        }else {
+            return redirect()->back()->withErrors(['message' => 'Try again']);
+        }
     }
 }
 
@@ -41,6 +62,7 @@ class Programme
         $this->faculty = $faculty;
     }
 
+    // singleton
     public static function getInstance($programmeID, $name, $faculty)
     {
         if (self::$instance == null)
