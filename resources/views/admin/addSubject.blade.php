@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Subject</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('addSubject') }}">
+                    <form method="POST" action="{{ route('addSubject') }}" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="col-md-10 ">
