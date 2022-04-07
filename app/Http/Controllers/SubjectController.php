@@ -20,6 +20,32 @@ class SubjectController
     
     public function store(Request $request){
 
+        $programmeID = $request->input('name');
+        $facultyID = $request->input('facultyID');
+        // instantiate programme
+        $subjectInstance = SubjectDetails::getInstance("null", $courseCode, $title, $page, $price, $image);
+
+        $subjectID = $subjectInstance->getSubjectID();
+        $subjectCourseCode = $subjectInstance->getCourseCode();
+        $subjectTitle = $subjectInstance->getTitle();
+        $subjectPage = $subjectInstance->getPage();
+        $subjectPrice = $subjectInstance->getPrice();
+        $subjectImage = $subjectInstance->getImage();
+
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $subjectStmt = $pdo->prepare("INSERT INTO subject (subjectID, courseCode, title, pages, price, image) VALUES (:subjectID, :courseCode, :title, :pages, :price, :image)");
+
+        
+        $programmeSubjectStmt = $pdo->prepare("INSERT INTO programmesubject (programmeID, subjectID) VALUES (:programmeID, :subjectID)");
+
+        
+        if($stmt1->execute() && $stmt2->execute()){
+            return redirect()->back()->withErrors(['message' => 'Programme has been added']);
+        }else {
+            return redirect()->back()->withErrors(['message' => 'Try again']);
+        }
     }
 
 }
