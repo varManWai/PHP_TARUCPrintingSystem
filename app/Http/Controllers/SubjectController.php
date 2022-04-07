@@ -19,18 +19,59 @@ class SubjectController
     }
     
     public function store(Request $request){
-
-        // $cc = $request->input('courseCode');
-        // $title = $request->input('title');
-        // $pages = $request->input('pages');
-        // $price = $request->input('price');
-        // $image = $request->input('image');        
-        // // array of programmes
-        // $programme = $request->input('programmeID');
-
-
         
+        $cc = $request->input('courseCode');
+        $title = $request->input('title');
+        $pages = $request->input('pages');
+        $price = $request->input('price');
+        $image = "public/image/subjects/";            
+        $image .= $request->file('image')->getClientOriginalName();  
         
+        // array of programmes
+        $programme = $request->input('programmeID');  
+
+        // store images into local folder
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $file->storeAs('public/image/subjects/', $filename);
+
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+       
+        // instantiate programme
+        $subjectInstance = SubjectDetails::getInstance("null",$cc,$title,$pages,$price,$image);
+        $subjectID = $subjectInstance->getSubjectID();
+        $subjectCourseCode = $subjectInstance->getCourseCode();
+        $subjectTitle = $subjectInstance->getTitle();
+        $subjectPage = $subjectInstance->getPage();
+        $subjectPrice = $subjectInstance->getPrice();
+        $subjectImage = $subjectInstance->getImage();
+         
+        // done
+        // insert subject
+        $stmt1 = $pdo->prepare("INSERT INTO subject (subjectID, courseCode, title, pages, price, image) VALUES (:subjectID, :courseCode, :title, :pages, :price, :image)");
+        $stmt1->bindParam('subjectID', $subjectID);
+        $stmt1->bindParam('courseCode', $subjectCourseCode);
+        $stmt1->bindParam('title', $subjectTitle);
+        $stmt1->bindParam('pages', $subjectPage);
+        $stmt1->bindParam('price', $subjectPrice);
+        $stmt1->bindParam('image', $subjectImage);
+        $stmt1->execute();
+
+    // get the subject id after inserting
+        $stmt2 = $pdo->prepare("SELECT subjectID FROM subject ORDER BY subjectID DESC LIMIT 1");
+        $stmt2->execute();
+        $actualSubjectID = $stmt2->fetchColumn();    
+    
+        // store into subjectprogramme database
+        foreach($programme as $eachProgramme){
+            $stmt3 = $pdo->prepare("INSERT INTO programmesubject (programmeID, subjectID) VALUES (:programmeID, :subjectID)");
+            $stmt3->bindParam('programmeID', $eachProgramme);
+            $stmt3->bindParam('subjectID', $actualSubjectID);
+            $stmt3->execute();
+        }        
+        
+        return redirect()->back()->withErrors(['message' => 'Subject has been created']);
     }
 
 }
