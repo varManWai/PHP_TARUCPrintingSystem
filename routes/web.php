@@ -12,19 +12,20 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-
+//USER
 //Do not required auth
 Route::get('/register', [RegisterController::class, 'index']) -> name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'index']) -> name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
+//ADMIN
+//Do not required auth
+Route::get('/adminLogin', [AdminsController::class, 'index'])-> name('adminLogin');
 
 //Required auth
 Auth::routes();
 
-
-//USER
 //Faculty
 Route::get('/faculty',[FacultyController::class, 'index']) -> name('addFaculty');
 Route::post('/faculty',[FacultyController::class,'store']);
