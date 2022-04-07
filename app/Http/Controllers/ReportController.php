@@ -22,7 +22,7 @@ class ReportController extends Controller
         $day = date("d");
         
         
-        $orderData = DB::table('order')->select('totalPrice','date')->get();
+        $orderData = DB::table('order')->where('status','Completed')->select('totalPrice','date')->get();
         
         if($orderData->isEmpty()){
             return view('report.print')->with('order','Empty');
@@ -49,7 +49,7 @@ class ReportController extends Controller
                 $averageRevenuePerSales = number_format(($totalSales/$NumberOfSales),2);
                 $highestSalesOfTheDay = number_format($highestSalesOfTheDay,2);
                 $totalSales = number_format($totalSales,2);
-                $subjectData = DB::Table('subject')->leftJoin('order_subject','subject.subjectID','=','order_subject.subjectID')->leftJoin('order','order.orderID','=','order_subject.orderID')->where('order.date','=',$dates)->select('subject.subjectID','subject.courseCode','subject.title',DB::raw('SUM(order_subject.Quantity) AS Quantity'))->groupBy('subject.subjectID','subject.courseCode','subject.title')->get();
+                $subjectData = DB::Table('subject')->leftJoin('order_subject','subject.subjectID','=','order_subject.subjectID')->leftJoin('order','order.orderID','=','order_subject.orderID')->where('order.date','=',$dates)->where('order.status','Completed')->select('subject.subjectID','subject.courseCode','subject.title',DB::raw('SUM(order_subject.Quantity) AS Quantity'))->groupBy('subject.subjectID','subject.courseCode','subject.title')->get();
                 
                 return view('report.print')->with('order','Available')->with('totalSales',$totalSales)->with('numberOfSales',$NumberOfSales)->with('averagePerSales',$averageRevenuePerSales)->with('highestSales',$highestSalesOfTheDay)->with('date',$dates)->with('subjectDetails',$subjectData)->with('type',0);
                 
@@ -72,7 +72,7 @@ class ReportController extends Controller
         $year = date("Y");
         $dayMonth=cal_days_in_month(CAL_GREGORIAN,$month,$year);
         
-        $orderData = DB::table('order')->select('totalPrice','date')->get();
+        $orderData = DB::table('order')->where('status','Completed')->select('totalPrice','date')->get();
         
         if($orderData->isEmpty()){
             return view('report.print')->with('order','Empty');
@@ -101,7 +101,7 @@ class ReportController extends Controller
                 $totalSales = number_format($totalSales,2);
                 $averageRevenuePerDay = number_format(($totalSales/$dayMonth),2);
                 
-                $subjectData = DB::Table('subject')->leftJoin('order_subject','subject.subjectID','=','order_subject.subjectID')->leftJoin('order','order.orderID','=','order_subject.orderID')->where(DB::raw('MONTH(order.date)'),'=',$month)->where(DB::raw('YEAR(order.date)'),'=',$year)->select('subject.subjectID','subject.courseCode','subject.title',DB::raw('SUM(order_subject.Quantity) AS Quantity'))->groupBy('subject.subjectID','subject.courseCode','subject.title')->get();
+                $subjectData = DB::Table('subject')->leftJoin('order_subject','subject.subjectID','=','order_subject.subjectID')->leftJoin('order','order.orderID','=','order_subject.orderID')->where('order.status','Completed')->where(DB::raw('MONTH(order.date)'),'=',$month)->where(DB::raw('YEAR(order.date)'),'=',$year)->select('subject.subjectID','subject.courseCode','subject.title',DB::raw('SUM(order_subject.Quantity) AS Quantity'))->groupBy('subject.subjectID','subject.courseCode','subject.title')->get();
                 
                 return view('report.print')->with('order','Available')->with('totalSales',$totalSales)->with('numberOfSales',$NumberOfSales)->with('averagePerSales',$averageRevenuePerSales)->with('averagePerDay',$averageRevenuePerDay)->with('highestSales',$highestSalesOfTheMonth)->with('date',$dates)->with('subjectDetails',$subjectData)->with('type',1);
                 
@@ -122,41 +122,44 @@ class ReportController extends Controller
         $dates = date("Y-m-d");
         $year = date("Y");
         
-        $orderData = DB::table('order')->select('totalPrice','date')->get();
-        
-        foreach($orderData as $datas){
-            $date = $datas->date;
-            $timestamp = strtotime($datas->date);
-            $yearDB = date('Y',$timestamp);
-            if($year==$yearDB){
-                $totalSales += $datas->totalPrice;
-                $NumberOfSales++;
-                if($datas->totalPrice>$highestSalesOfTheYear){
-                    $highestSalesOfTheYear = $datas->totalPrice;
+        $orderData = DB::table('order')->where('status','Completed')->select('totalPrice','date')->get();
+        if($orderData->isEmpty()){
+            return view('report.print')->with('order','Empty');
+        }else{
+            foreach($orderData as $datas){
+                $date = $datas->date;
+                $timestamp = strtotime($datas->date);
+                $yearDB = date('Y',$timestamp);
+                if($year==$yearDB){
+                    $totalSales += $datas->totalPrice;
+                    $NumberOfSales++;
+                    if($datas->totalPrice>$highestSalesOfTheYear){
+                        $highestSalesOfTheYear = $datas->totalPrice;
+                    }
                 }
+                
             }
             
-        }
-
-        if($NumberOfSales == 0){
-            return view('report.print')->with('order','Available')->with('numberOfSales',$NumberOfSales)->with('date',$dates)->with('type',2);
-            
-        }else{
-            
-            $averageRevenuePerSales = number_format(($totalSales/$NumberOfSales),2);
-            $averageRevenuePerDay = number_format(($totalSales/365),2);
-            $averageRevenuePerMonth = number_format(($totalSales/12),2);
-            $highestSalesOfTheYear = number_format($highestSalesOfTheYear,2);
-            $totalSales = number_format($totalSales,2);
-            
-            
-            $subjectData = DB::Table('subject')->leftJoin('order_subject','subject.subjectID','=','order_subject.subjectID')->leftJoin('order','order.orderID','=','order_subject.orderID')->where(DB::raw('YEAR(order.date)'),'=',$year)->select('subject.subjectID','subject.courseCode','subject.title',DB::raw('SUM(order_subject.Quantity) AS Quantity'))->groupBy('subject.subjectID','subject.courseCode','subject.title')->get();
-            
-            return view('report.print')->with('order','Available')->with('totalSales',$totalSales)->with('numberOfSales',$NumberOfSales)->with('averagePerSales',$averageRevenuePerSales)->with('averagePerDay',$averageRevenuePerDay)->with('averagePerMonth',$averageRevenuePerMonth)->with('highestSales',$highestSalesOfTheYear)->with('date',$dates)->with('subjectDetails',$subjectData)->with('type',2);
-            
+            if($NumberOfSales == 0){
+                return view('report.print')->with('order','Available')->with('numberOfSales',$NumberOfSales)->with('date',$dates)->with('type',2);
+                
+            }else{
+                
+                $averageRevenuePerSales = number_format(($totalSales/$NumberOfSales),2);
+                $averageRevenuePerDay = number_format(($totalSales/365),2);
+                $averageRevenuePerMonth = number_format(($totalSales/12),2);
+                $highestSalesOfTheYear = number_format($highestSalesOfTheYear,2);
+                $totalSales = number_format($totalSales,2);
+                
+                
+                $subjectData = DB::Table('subject')->leftJoin('order_subject','subject.subjectID','=','order_subject.subjectID')->leftJoin('order','order.orderID','=','order_subject.orderID')->where('order.status','Completed')->where(DB::raw('YEAR(order.date)'),'=',$year)->select('subject.subjectID','subject.courseCode','subject.title',DB::raw('SUM(order_subject.Quantity) AS Quantity'))->groupBy('subject.subjectID','subject.courseCode','subject.title')->get();
+                
+                return view('report.print')->with('order','Available')->with('totalSales',$totalSales)->with('numberOfSales',$NumberOfSales)->with('averagePerSales',$averageRevenuePerSales)->with('averagePerDay',$averageRevenuePerDay)->with('averagePerMonth',$averageRevenuePerMonth)->with('highestSales',$highestSalesOfTheYear)->with('date',$dates)->with('subjectDetails',$subjectData)->with('type',2);
+                
+            }
         }
     }
-
+    
     
 }
 

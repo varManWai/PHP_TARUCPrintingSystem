@@ -7,7 +7,15 @@
         <div class="col"></div>
         <div class="col-8">
             @if ($order=='Empty')
-            <p>There is no order record!!</p>
+            <div class="row mt-4 justify-content-center">
+                <div class="col"></div>
+                <div class="col-8 text-center">
+                    <img src="{{url('/image/empty.png')}}" alt="">
+                    <h1 style="color: red" class="text-center mt-3"><b>Nothing to show</b></h1>
+                    <h2 style="color: red" class="text-center">Currently you do not have any sales to generate report.</h2>
+                </div>
+                <div class="col"></div>
+            </div>
             @else
             
             <div class="d-flex justify-content-center">
@@ -28,12 +36,15 @@
             
             @if ($numberOfSales==0)
             <div class="row mt-4 justify-content-center">
-                <div class="col">
-                    <p style="color: red" class="text-center">There is no order record today!!</p>
+                <div class="col"></div>
+                <div class="col-8 text-center">
+                    <img src="{{url('/image/empty.png')}}" alt="">
+                    <h1 style="color: red" class="text-center mt-3"><b>Nothing to show</b></h1>
+                    <h2 style="color: red" class="text-center">Today you do not have any sales to generate report.</h2>
                 </div>
+                <div class="col"></div>
             </div>
-            
-            
+
             @else
             <div class="row mt-4 justify-content-center">
                 <div class="col"></div>
@@ -105,11 +116,14 @@
             
             @if ($numberOfSales==0)
             <div class="row mt-4 justify-content-center">
-                <div class="col">
-                    <p style="color: red" class="text-center">There is no order record this Month!!</p>
+                <div class="col"></div>
+                <div class="col-8 text-center">
+                    <img src="{{url('/image/empty.png')}}" alt="">
+                    <h1 style="color: red" class="text-center mt-3"><b>Nothing to show</b></h1>
+                    <h2 style="color: red" class="text-center">This month you do not have any sales to generate report.</h2>
                 </div>
+                <div class="col"></div>
             </div>
-            
             
             @else
             <div class="row mt-4 justify-content-center">
@@ -196,9 +210,13 @@
             
             @if ($numberOfSales==0)
             <div class="row mt-4 justify-content-center">
-                <div class="col">
-                    <p style="color: red" class="text-center">There is no order record this Year!!</p>
+                <div class="col"></div>
+                <div class="col-8 text-center">
+                    <img src="{{url('/image/empty.png')}}" alt="">
+                    <h1 style="color: red" class="text-center mt-3"><b>Nothing to show</b></h1>
+                    <h2 style="color: red" class="text-center">This year you do not have any sales to generate report.</h2>
                 </div>
+                <div class="col"></div>
             </div>
             
             
