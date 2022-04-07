@@ -54,8 +54,24 @@ class OrderController extends Controller
     }
 
     public function cartIndex(){
-        return view('orders.cart');
-        
+        if(!auth()->user()){
+            return view('orders.noUser');
+        }
+        $id = Auth::user()->id;
+
+        $cartID = cart::select('cartID')
+        ->where('userID',$id)
+        ->first()
+        ->toArray();
+
+        $subjectID = DB::table('cart_subject')
+        ->select('subjectID','Quantity')
+        ->where('cartID','=',$cartID['cartID'])
+        ->get()
+        ->toArray();
+
+        // dd($subjectID);
+        return view('orders.cart')->with('subjectID',$subjectID);
     }
     
     
