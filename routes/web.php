@@ -35,6 +35,7 @@ Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
+Route::post('/editUser', [UsersController::class, 'update']);
 
 //Home Page
 Route::get('/home', [HomeController::class, 'index'])->name('home');

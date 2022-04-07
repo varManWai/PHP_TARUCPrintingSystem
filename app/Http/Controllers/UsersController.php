@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -20,36 +21,40 @@ class UsersController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //validate input
-
+        //VALIDATE INPUT
         $this->validate($request, [
-            'name' => 'required|max:30',
-            'email' => 'required|email|max:30',
-            'password' => 'required|confirmed',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phoneNo' => ['string', 'min:10', 'max:11', 'nullable'],
+            'programmeID' => ['string', 'nullable'],
         ]);
 
-        //store user
-        // User::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password), //hash the password
-        // ]);
+        //UPDATE USER
+        //GET the User 
+        $user = User::find(Auth::user()->id);
 
-        //sign in user
+        //ASSIGN the new data to the user 
+        $user->name = trim($request->name);
+        $user->email = trim($request->email);
+        $user->password = Hash::make(trim($request->password));
+        $user->phoneNo = trim($request->phoneNo);
+        $user->programmeID = trim($request->programmeID);
 
-        //redirecting
-        return redirect()->route('dashboard');
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Profile updated');
 
     }
-    
-    public function edit()
+
+    public function edit(Request $request)
     {
-        // dd(Auth::user()->id);
-        // dd(Auth::user()->name);
-        dd(Auth::user()->email);
-        
+
+        return view('users.editUser');
     }
 }
 
