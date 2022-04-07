@@ -110,18 +110,18 @@ class OrderController extends Controller
         $cartID = cart::select('cartID')
         ->where('userID',$id)
         ->first();
+       
+
         
-        if($cartID->isEmpty()){
+        if(is_null($cartID)){
             $cartID = $orderFacade->createUserCart($id);
         }else{
-            $cartID = $cartID->toArray();
+            $cartID = $cartID->value('cartID');
         }
-
         
-
         $subjectID = DB::table('cart_subject')
         ->select('subjectID','Quantity')
-        ->where('cartID','=',$cartID['cartID'])
+        ->where('cartID','=',$cartID)
         ->get()
         ->toArray();
         return $subjectID;
@@ -142,7 +142,8 @@ class OrderFacade{
     }
     
     public function createUserCart($id){
-        $this->createCart->createUserCart($id);
+        $cartID = $this->createCart->createUserCart($id);
+        return $cartID;
     }
 
     public function insertCart($subjectID,$id){
