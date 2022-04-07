@@ -27,17 +27,17 @@ $totalPrice = 0;
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <form action="{{ route('addCartFromCart') }}" method="POST">
                         @csrf
-                        <input type="hidden" id="subjectID" name="subjectID" value="{{ $subjectDetails[0]->subjectID }}">
+                        <input type="hidden" id="subjectID" name="subjectID" value="{{ $subject->subjectID }}">
                         <button class="btn btn-primary">+</button>
                     </form>
-                    <form action="POST" method="">
+                    <form action="{{ route('removeCart') }}" method="POST">
                         @csrf
-                        <input type="hidden" id="subjectID" name="subjectID" value="{{ $subjectDetails[0]->subjectID }}">    
+                        <input type="hidden" id="subjectID" name="subjectID" value="{{ $subject->subjectID }}">    
                         <button class="btn btn-primary">Remove <span class="badge bg-secondary">{{ $subject->Quantity }}</span></button>
                     </form>
                     <form action="{{ route('reduceCart') }}" method="POST">
                         @csrf
-                        <input type="hidden" id="subjectID" name="subjectID" value="{{ $subjectDetails[0]->subjectID }}">
+                        <input type="hidden" id="subjectID" name="subjectID" value="{{ $subject->subjectID }}">
                         <button class="btn btn-primary">-</button>
                     </form>
                 </div>

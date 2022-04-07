@@ -59,6 +59,9 @@ class OrderController extends Controller
         }
         $id = Auth::user()->id;
         $subjectID = $this->findSubjectId($id);
+        if(empty($subjectID)){
+            return view('orders.noItemInCart');
+        }
         return view('orders.cart')->with('subjectID',$subjectID);
     }
 
@@ -68,28 +71,57 @@ class OrderController extends Controller
         $success = $orderFacade->insertCart($request->input('subjectID'),$id);
 
         $subjectID = $this->findSubjectId($id);
+        if(empty($subjectID)){
+            return view('orders.noItemInCart');
+        }
         return view('orders.cart')->with('subjectID',$subjectID);
     }
 
     public function reduceCart(Request $request){
         $id = Auth::user()->id;
         $orderFacade = new OrderFacade;
-        $success = $orderFacade->minusCart($request->input('subjectID'),$id);
+        $subjectID = $request->input('subjectID');
+        
+        $success = $orderFacade->minusCart($subjectID,$id);
+        
+        $subjectID = $this->findSubjectId($id);
+        if(empty($subjectID)){
+            return view('orders.noItemInCart');
+        }
+        return view('orders.cart')->with('subjectID',$subjectID);
+    }
+
+    public function removeFromCart(Request $request){
+        $id = Auth::user()->id;
+        $orderFacade = new OrderFacade;
+        $subjectID = $request->input('subjectID');
+        
+        $success = $orderFacade->deleteCart($subjectID,$id);
 
         $subjectID = $this->findSubjectId($id);
+        if(empty($subjectID)){
+            return view('orders.noItemInCart');
+        }
         return view('orders.cart')->with('subjectID',$subjectID);
     }
 
     function findSubjectId($id){
-
+        $orderFacade = new OrderFacade;
         $cartID = cart::select('cartID')
         ->where('userID',$id)
-        ->first()
-        ->toArray();
+        ->first();
+       
 
+        
+        if(is_null($cartID)){
+            $cartID = $orderFacade->createUserCart($id);
+        }else{
+            $cartID = $cartID->value('cartID');
+        }
+        
         $subjectID = DB::table('cart_subject')
         ->select('subjectID','Quantity')
-        ->where('cartID','=',$cartID['cartID'])
+        ->where('cartID','=',$cartID)
         ->get()
         ->toArray();
         return $subjectID;
@@ -109,13 +141,25 @@ class OrderFacade{
         $this->createOrder = new CreateOrder();
     }
     
+    public function createUserCart($id){
+        $cartID = $this->createCart->createUserCart($id);
+        return $cartID;
+    }
+
     public function insertCart($subjectID,$id){
         $success = $this->createCart->addSubjectCart($subjectID,$id);
         return $success;
     }
 
     public function minusCart($subjectID,$id){
+        
         $success = $this->createCart->minusCart($subjectID,$id);
+        return $success;
+        
+    }
+
+    public function deleteCart($subjectID,$id){
+        $success = $this->createCart->removeCart($subjectID,$id);
         return $success;
     }
     
@@ -185,27 +229,26 @@ class createCart{
         
     }
     
-    function minusCart($id,$subjectID){
+    function minusCart($subjectID,$id){
         $cart = DB::table('cart')
         ->where('userID','=',$id)
         ->select('cartID')
         ->get();
-
-        $cartID = $cart[0]->cartID; 
         
+        $cartID = $cart[0]->cartID; 
         DB::table('cart_subject')
         ->where('cartID','=',$cartID)
         ->where('subjectID','=', $subjectID)
         ->decrement('Quantity');
-
+        
         $checkQty = DB::table('cart_subject')
         ->where('cartID','=',$cartID)
         ->where('subjectID','=',$subjectID)
         ->select('Quantity')
         ->get();
-
+        
         $Qty = $checkQty[0]->Quantity;
-
+        
         if(empty($Qty)){
             DB::table('cart_subject')
             ->where('cartID','=',$cartID)
@@ -215,5 +258,20 @@ class createCart{
         }
 
         return $success = 'Subject reduced';
+    }
+
+    function removeCart($subjectID,$id){
+        $cart = DB::table('cart')
+        ->where('userID','=',$id)
+        ->select('cartID')
+        ->get();
+        $cartID = $cart[0]->cartID; 
+        
+        DB::table('cart_subject')
+        ->where('cartID','=',$cartID)
+        ->where('subjectID','=', $subjectID)
+        ->delete();
+
+        return $success = 'Deleted from cart';
     }
 }
