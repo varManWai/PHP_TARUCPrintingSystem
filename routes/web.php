@@ -41,6 +41,9 @@ Route::post('/addprogramme',[ProgrammeController::class,'store']);
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');
 Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 
+//Cart
+Route::get('/cart',[OrderController::class, 'cartIndex'])-> name('Cart');
+
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
 Route::post('/editName', [UsersController::class, 'editName'])->name('editName');
