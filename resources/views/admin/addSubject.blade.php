@@ -17,12 +17,12 @@
                         </div>
                        
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Course Code') }}</label>
+                            <label for="courseCode" class="col-md-4 col-form-label text-md-end">{{ __('Course Code') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="courseCode" type="text" class="form-control @error('name') is-invalid @enderror" name="courseCode" value="{{ old('courseCode') }}" required autocomplete="courseCode" autofocus>
                                 
-                                @error('name')
+                                @error('courseCode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -31,12 +31,12 @@
                         </div>
                        
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-end">{{ __('Title') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="title" type="text" class="form-control @error('name') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
                                 
-                                @error('name')
+                                @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -45,12 +45,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Pages') }}</label>
+                            <label for="pages" class="col-md-4 col-form-label text-md-end">{{ __('Pages') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="pages" type="text" class="form-control @error('pages') is-invalid @enderror" name="pages" value="{{ old('pages') }}" required autocomplete="pages" autofocus>
                                 
-                                @error('name')
+                                @error('pages')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -59,12 +59,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Price') }}</label>
+                            <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('Price') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price" autofocus>
                                 
-                                @error('name')
+                                @error('price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -73,22 +73,22 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
 
                             <div class="col-md-6">
                                 <div class="input-group mb-3">
-                                    <input type="file" class="form-control" id="inputGroupFile02">                                    
+                                    <input type="file" class="form-control" id="inputGroupFile02" name="image">                                    
                                 </div>                                                            
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Programme (s)') }}</label>
+                            <label for="programme" class="col-md-4 col-form-label text-md-end">{{ __('Programme (s)') }}</label>
                             
                             <div class="col-md-6">
                             @foreach ($programmes as $programme => $programme_name )                            
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="{{$programme}}" name="programmeID" value="{{$programme}}">
+                                    <input class="form-check-input" type="checkbox" id="{{$programme}}" name="programmeID[]" value="{{$programme}}">
                                     <label class="form-check-label">{{$programme_name}}</label>
                                 </div>                                                               
                             @endforeach

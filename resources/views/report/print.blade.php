@@ -101,7 +101,6 @@
             <div class="row justify-content-center">
                 
                 @foreach ($subjectDetails as $item)
-                <input type="hidden" name="title[]" value="{{$item->courseCode}}">
                 <input type="hidden" name="courseCode[]" value="{{$item->courseCode}}">
                 <input type="hidden" name="quantity[]" value="{{$item->Quantity}}">
                 @endforeach
@@ -195,7 +194,6 @@
             <div class="row justify-content-center">
                 
                 @foreach ($subjectDetails as $item)
-                <input type="hidden" name="title[]" value="{{$item->courseCode}}">
                 <input type="hidden" name="courseCode[]" value="{{$item->courseCode}}">
                 <input type="hidden" name="quantity[]" value="{{$item->Quantity}}">
                 @endforeach
@@ -298,7 +296,6 @@
             <div class="row justify-content-center">
                 
                 @foreach ($subjectDetails as $item)
-                <input type="hidden" name="title[]" value="{{$item->courseCode}}">
                 <input type="hidden" name="courseCode[]" value="{{$item->courseCode}}">
                 <input type="hidden" name="quantity[]" value="{{$item->Quantity}}">
                 @endforeach
@@ -330,15 +327,14 @@
 
 
 <script type="text/javascript">
-    var title = document.getElementsByName('title[]');
     var courseCode = document.getElementsByName('courseCode[]');
     var quantity = document.getElementsByName('quantity[]');
     const xValues = [];
     const yValues = [];
     const barColors = [];
     
-    for (var i=0; i<title.length;i++){
-        xValues[i] = title[i].value;
+    for (var i=0; i<courseCode.length;i++){
+        xValues[i] = courseCode[i].value;
         yValues[i] = quantity[i].value;
         const randomColor = Math.floor(Math.random()*16777215).toString(16);
         barColors[i] = "#" + randomColor;
