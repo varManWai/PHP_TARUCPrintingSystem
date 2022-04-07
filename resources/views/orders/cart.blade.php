@@ -1,9 +1,8 @@
 @extends('layouts.app')
-@php
-    use App\Models\subject;
-@endphp
+
 @section('content')
     <div class="container">
-       {{ $id }}
+        <h1>Cart</h1>
+        
     </div>
 @endsection

@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProgrammeController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,18 +22,27 @@ Route::post('/login', [LoginController::class, 'store']);
 
 //ADMIN
 //Do not required auth
-Route::get('/adminLogin', [AdminsController::class, 'index'])-> name('adminLogin');
+Route::get('/adminLogin', [AdminLoginController::class, 'index'])-> name('adminLogin');
+Route::post('/adminLogin', [AdminLoginController::class, 'store']);
 
+//USER
 //Required auth
 Auth::routes();
 
 //Faculty
-Route::get('/faculty',[FacultyController::class, 'index']) -> name('addFaculty');
-Route::post('/faculty',[FacultyController::class,'store']);
+Route::get('/addfaculty',[FacultyController::class, 'index']) -> name('addFaculty');
+Route::post('/addfaculty',[FacultyController::class,'store']);
+
+//Programme
+Route::get('/addprogramme',[ProgrammeController::class, 'index']) -> name('addProgramme');
+Route::post('/addprogramme',[ProgrammeController::class,'store']);
 
 //Order
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');
 Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
+
+//Cart
+Route::get('/cart',[OrderController::class, 'cartIndex'])-> name('Cart');
 
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
@@ -62,5 +72,5 @@ Route::post('/generateMonthly',[ReportController::class,'generateMonthly'])->nam
 Route::post('/generateYearly',[ReportController::class,'generateYearly'])->name('generateYearly');
 
 //User Dashboard
-Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard');
+Route::get('/dashboard', [UsersController::class, 'index'])-> name('dashboard')->middleware('auth:admin');
 

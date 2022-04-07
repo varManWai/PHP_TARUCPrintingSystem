@@ -34,8 +34,13 @@ class LoginController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        
+    {   
         $this->middleware('guest')->except('logout');
+    }
+
+    public function store(Request $request){
+        $remember = $request->remember;
+
+        Auth::login($user, $remember);
     }
 }

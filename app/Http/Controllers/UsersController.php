@@ -26,7 +26,7 @@ class UsersController extends Controller
         //VALIDATE INPUT
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phoneNo' => ['string', 'min:10', 'max:11', 'nullable'],
             'programmeID' => ['string', 'nullable'],
