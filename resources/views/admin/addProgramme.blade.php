@@ -13,19 +13,33 @@
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="email" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                               @if (\Session::has('results'))
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ \Session::get('results') }}</strong>
-                                    </span>
-                                @endif
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="faculty" class="col-md-4 col-form-label text-md-end">{{ __('Faculty') }}</label>
+                       
+                            <div class="col-md-6">
+                                @foreach ($faculties as $faculty => $faculty_name )
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" id="{{$faculty}}" name="optradio" value="{{$faculty}} ">{{ $faculty_name }}         
+                                    <label class="form-check-label" for="radio{{$faculty}}"></label>                          
+                                </div>                                
+                                @endforeach
+                                
+                                @error('faculty')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>                                                     
                         </div>
 
                         <div class="row mb-0">
