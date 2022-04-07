@@ -9,6 +9,7 @@ use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\OrderHistoryController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,8 @@ Route::post('/addprogramme',[ProgrammeController::class,'store']);
 Route::get('/order',[OrderController::class, 'index']) -> name('Order');
 Route::post('/order',[OrderController::class,'addCart']) -> name('AddCart');
 
+
+
 //Cart
 Route::get('/cart',[OrderController::class, 'cartIndex'])-> name('Cart');
 
@@ -53,6 +56,9 @@ Route::post('/editPhoneNo', [UsersController::class, 'editPhoneNo'])->name('edit
 Route::post('/editProgrammeID', [UsersController::class, 'editProgrammeID'])->name('editProgrammeID');
 Route::get('/deleteAccount', [UsersController::class, 'deleteAccount'])->name('deleteAccount');
 Route::post('/deleteAccount', [UsersController::class, 'deletedAccount'])->name('deletedAccount');
+
+//OrderHistory
+Route::get('/orderHistory',[OrderHistoryController::class, 'index'])->name('orderHistory');
 
 //Home Page
 Route::get('/home', [HomeController::class, 'index'])->name('home');
