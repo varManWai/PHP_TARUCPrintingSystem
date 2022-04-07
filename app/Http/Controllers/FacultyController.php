@@ -28,7 +28,7 @@ class FacultyController
         $stmt->bindParam('name', $facultyName);
         
         if($stmt->execute()){            
-            return redirect()->back()->withErrors(['message' => 'Faculty has been added']);
+            return redirect()->back()->withErrors(['message' => 'Faculty has been created']);
         }else {
             return redirect()->back()->withErrors(['message' => 'Try again']);
         }                

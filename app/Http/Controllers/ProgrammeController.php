@@ -41,7 +41,7 @@ class ProgrammeController
 
         
         if($stmt->execute()){
-            return redirect()->back()->withErrors(['message' => 'Programme has been added']);
+            return redirect()->back()->withErrors(['message' => 'Programme has been created']);
         }else {
             return redirect()->back()->withErrors(['message' => 'Try again']);
         }
