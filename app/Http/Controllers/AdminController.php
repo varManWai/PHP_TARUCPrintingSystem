@@ -7,6 +7,7 @@ use App\Models\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -18,13 +19,7 @@ class AdminController extends Controller
     public function index()
     {
 
-        $users = User::all();
-        // $programme = Programme::all();
-        
-        foreach($users as $user){
-            dd($user->name);
-        }
-       
+        $users = DB::table('users')->join('programme', 'users.programmeID','=','programme.programmeID') ->select('users.*', 'programme.name AS programmeName')->get();
         // $programmeID = DB::table('users')
         // ->select('programmeID')
         // ->where('id','=',$id)
@@ -35,47 +30,18 @@ class AdminController extends Controller
         // dd($programmes);
         
 
-        return view('admin.usersDashboard')->with('users',$users)->with('programme', $programmes);
+        return view('admin.usersDashboard')->with('users',$users);
 
     }
 
-    public function update(Request $request)
-    {
-        //VALIDATE INPUT
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phoneNo' => ['string', 'min:10', 'max:11', 'nullable'],
-            'programmeID' => ['string', 'nullable'],
-        ]);
+    public function editUser($id){
+        $user = User::find(1);
 
-        //UPDATE USER
-        //GET the User 
-        $user = User::find(Auth::user()->id);
-
-        //ASSIGN the new data to the user 
-        $user->name = trim($request->name);
-        $user->email = trim($request->email);
-        $user->password = Hash::make(trim($request->password));
-        $user->phoneNo = trim($request->phoneNo);
-        $user->programmeID = trim($request->programmeID);
-
-        //STORE the new data into database
-        $user->save();
-
-        //REDIRECT ROUTE
-        return back()->with('updated', 'Profile updated');
+        return view('admin.editUser')->with('userID',$id)->with('user',$user);
 
     }
 
-    public function edit(Request $request)
-    {
-
-        return view('users.editUser');
-    }
-
-    public function editName(Request $request)
+    public function editUserName(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -84,7 +50,7 @@ class AdminController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find(Auth::user()->id);
+        $user = User::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->name = trim($request->name);
@@ -97,7 +63,7 @@ class AdminController extends Controller
 
     }
 
-    public function editEmail(Request $request)
+    public function editUserEmail(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -106,7 +72,7 @@ class AdminController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find(Auth::user()->id);
+        $user = User::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->email = trim($request->email);
@@ -119,7 +85,7 @@ class AdminController extends Controller
 
     }
 
-    public function editPassword(Request $request)
+    public function editUserPassword(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -129,7 +95,7 @@ class AdminController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find(Auth::user()->id);
+        $user = User::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->password = Hash::make(trim($request->password));
@@ -142,17 +108,17 @@ class AdminController extends Controller
 
     }
 
-    public function editPhoneNo(Request $request)
+    public function editUserPhoneNo(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
-            'phoneNo' => ['string', 'min:10', 'max:11', 'nullable'],
+            'phoneNo' => ['string', 'min:11', 'max:12', 'nullable'],
            
         ]);
 
         //UPDATE USER
         //GET the User 
-        $user = User::find(Auth::user()->id);
+        $user = User::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->phoneNo = trim($request->phoneNo);
@@ -165,7 +131,7 @@ class AdminController extends Controller
 
     }
 
-    public function editProgrammeID(Request $request)
+    public function editUserProgrammeID(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -174,7 +140,7 @@ class AdminController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find(Auth::user()->id);
+        $user = User::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->programmeID = trim($request->programmeID);
@@ -187,27 +153,19 @@ class AdminController extends Controller
 
     }
 
-    public function deleteAccount(){
+    public function deleteUser($id){
 
-        //REDIRECT ROUTE (To do the delete confirmation)
-        return view('users.confirmDeleteAccount');
-    }
-
-    public function deletedAccount(){
-        
-        //DELETE USER
-        //GET the User 
-        $user = User::find(Auth::user()->id);
+        //GET the User by id
+        $user = User::find($id);
 
         //DELETE the user
         $user->delete();
 
-        //LOGOUT
-        auth()->logout();
-
-        //REDIRECT ROUTE
-        return view('auth.login');
+        //REDIRECT ROUTE (To do the delete confirmation page)
+        return redirect()->route('usersDashboard');
     }
+
+    
 }
 
 // interface AccountInterface{

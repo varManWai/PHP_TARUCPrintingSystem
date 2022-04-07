@@ -85,4 +85,17 @@ Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->n
 Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
 
 //User Dashboard
-Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/usersDashboard', [AdminController::class, 'index'])->name('usersDashboard');
+Route::get('/editUserAccount/{id}', [AdminController::class, 'editUser'])->name('editUserAccount');
+Route::get('/deleteUserAccount/{id}', [AdminController::class, 'deleteUser'])->name('deleteUserAccount');
+Route::post('/editUserName', [AdminController::class, 'editUserName'])->name('editUserName');
+Route::post('/editUserEmail', [AdminController::class, 'editUserEmail'])->name('editUserEmail');
+Route::post('/editUserPassword', [AdminController::class, 'editUserPassword'])->name('editUserPassword');
+Route::post('/editUserPhoneNo', [AdminController::class, 'editUserPhoneNo'])->name('editUserPhoneNo');
+Route::post('/editUserProgrammeID', [AdminController::class, 'editUserProgrammeID'])->name('editUserProgrammeID');
+
+
+Route::get('/suppliersDashboard', [AdminController::class, 'index'])->name('suppliersDashboard');
+Route::get('/addSupplierAccount', [AdminController::class, 'index'])->name('addSupplierAccount');
+// Route::get('/editSupplierAccount/{id}', [AdminController::class, 'index'])->name('editSupplierAccount');
+// Route::get('/deleteSupplierAccoun/{id}', [AdminController::class, 'index'])->name('deleteSupplierAccount');

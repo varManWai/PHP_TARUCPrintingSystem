@@ -21,36 +21,6 @@ class UsersController extends Controller
 
     }
 
-    public function update(Request $request)
-    {
-        //VALIDATE INPUT
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phoneNo' => ['string', 'min:10', 'max:11', 'nullable'],
-            'programmeID' => ['string', 'nullable'],
-        ]);
-
-        //UPDATE USER
-        //GET the User 
-        $user = User::find(Auth::user()->id);
-
-        //ASSIGN the new data to the user 
-        $user->name = trim($request->name);
-        $user->email = trim($request->email);
-        $user->password = Hash::make(trim($request->password));
-        $user->phoneNo = trim($request->phoneNo);
-        $user->programmeID = trim($request->programmeID);
-
-        //STORE the new data into database
-        $user->save();
-
-        //REDIRECT ROUTE
-        return back()->with('updated', 'Profile updated');
-
-    }
-
     public function edit(Request $request)
     {
 
@@ -65,10 +35,10 @@ class UsersController extends Controller
         ]);
 
         //UPDATE USER
-        //GET the User 
+        //GET the User
         $user = User::find(Auth::user()->id);
 
-        //ASSIGN the new data to the user 
+        //ASSIGN the new data to the user
         $user->name = trim($request->name);
 
         //STORE the new data into database
@@ -87,10 +57,10 @@ class UsersController extends Controller
         ]);
 
         //UPDATE USER
-        //GET the User 
+        //GET the User
         $user = User::find(Auth::user()->id);
 
-        //ASSIGN the new data to the user 
+        //ASSIGN the new data to the user
         $user->email = trim($request->email);
 
         //STORE the new data into database
@@ -106,14 +76,14 @@ class UsersController extends Controller
         //VALIDATE INPUT
         $this->validate($request, [
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            
+
         ]);
 
         //UPDATE USER
-        //GET the User 
+        //GET the User
         $user = User::find(Auth::user()->id);
 
-        //ASSIGN the new data to the user 
+        //ASSIGN the new data to the user
         $user->password = Hash::make(trim($request->password));
 
         //STORE the new data into database
@@ -128,15 +98,15 @@ class UsersController extends Controller
     {
         //VALIDATE INPUT
         $this->validate($request, [
-            'phoneNo' => ['string', 'min:10', 'max:11', 'nullable'],
-           
+            'phoneNo' => ['string', 'min:11', 'max:12', 'nullable'],
+
         ]);
 
         //UPDATE USER
-        //GET the User 
+        //GET the User
         $user = User::find(Auth::user()->id);
 
-        //ASSIGN the new data to the user 
+        //ASSIGN the new data to the user
         $user->phoneNo = trim($request->phoneNo);
 
         //STORE the new data into database
@@ -155,10 +125,10 @@ class UsersController extends Controller
         ]);
 
         //UPDATE USER
-        //GET the User 
+        //GET the User
         $user = User::find(Auth::user()->id);
 
-        //ASSIGN the new data to the user 
+        //ASSIGN the new data to the user
         $user->programmeID = trim($request->programmeID);
 
         //STORE the new data into database
@@ -169,16 +139,18 @@ class UsersController extends Controller
 
     }
 
-    public function deleteAccount(){
+    public function deleteAccount()
+    {
 
         //REDIRECT ROUTE (To do the delete confirmation)
         return view('users.confirmDeleteAccount');
     }
 
-    public function deletedAccount(){
-        
+    public function deletedAccount()
+    {
+
         //DELETE USER
-        //GET the User 
+        //GET the User
         $user = User::find(Auth::user()->id);
 
         //DELETE the user
