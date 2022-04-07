@@ -106,11 +106,18 @@ class OrderController extends Controller
     }
 
     function findSubjectId($id){
-
+        $orderFacade = new OrderFacade;
         $cartID = cart::select('cartID')
         ->where('userID',$id)
-        ->first()
-        ->toArray();
+        ->first();
+        
+        if($cartID->isEmpty()){
+            $cartID = $orderFacade->createUserCart($id);
+        }else{
+            $cartID = $cartID->toArray();
+        }
+
+        
 
         $subjectID = DB::table('cart_subject')
         ->select('subjectID','Quantity')
@@ -134,6 +141,10 @@ class OrderFacade{
         $this->createOrder = new CreateOrder();
     }
     
+    public function createUserCart($id){
+        $this->createCart->createUserCart($id);
+    }
+
     public function insertCart($subjectID,$id){
         $success = $this->createCart->addSubjectCart($subjectID,$id);
         return $success;
