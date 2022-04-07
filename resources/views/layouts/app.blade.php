@@ -66,7 +66,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('editUser') }}">
-                                        {{ __('Edit') }}
+                                        {{ __('Setting') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
