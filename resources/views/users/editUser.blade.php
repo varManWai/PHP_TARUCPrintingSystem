@@ -217,7 +217,7 @@
                                         <a href="{{ __('deleteAccount') }}" class="btn btn-danger " >Delete Account</a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="{{ route(suppliersDashboard) }}" class="btn btn-danger " >Back</a>
+                                        <a href="{{ route('home') }}" class="btn btn-white " style="border: gray solid 1px;" >Back</a>
                                     </div>
                                 </div>
                             </div>

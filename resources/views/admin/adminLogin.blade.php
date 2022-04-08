@@ -17,6 +17,12 @@
                                 </div>
                             @endif
 
+                            @if (session('danger'))
+                                <div class="alert alert-danger">
+                                    {{ session('danger') }}
+                                </div>
+                            @endif
+
                             <div class="row mb-3">
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
@@ -68,20 +74,15 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Login') }}
                                     </button>
-
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
                                 </div>
                             </div>
 
                             <hr>
 
-                            <div class="row mb-0 " style="border: red 2px solid">
-                                <div class="col-md-2 offset-md-5" style="border: red 2px solid">
-                                    <a href="{{ route('login') }}" style="text-align: center">Are you a student?</a>
+                            <div class="row mb-0 ">
+                                <div class="col-md-4 offset-md-5">
+                                    <a href="{{ route('login') }}" style="text-align: center">Student</a> OR <a
+                                        href="{{ route('supplierLogin') }}" style="text-align: center">Supplier</a>
                                 </div>
                             </div>
                         </form>

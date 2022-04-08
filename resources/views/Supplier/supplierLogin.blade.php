@@ -1,19 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.supplier')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Student Login') }}</div>
+                    <div class="card-header">{{ __('Supplier Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('supplierLogin') }}">
                             @csrf
 
                             @if (session('status'))
                                 <div class="alert alert-danger">
-                                    {{ session('updated') }}
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
+                            @if (session('danger'))
+                                <div class="alert alert-danger">
+                                    {{ session('danger') }}
                                 </div>
                             @endif
 
@@ -65,23 +71,18 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-dark">
                                         {{ __('Login') }}
                                     </button>
-
-                                    @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                                 </div>
                             </div>
 
                             <hr>
 
-                            <div class="row mb-0 " >
-                                <div class="col-md-4 offset-md-5" >
-                                    <a href="{{ route('adminLogin') }}" style="text-align: center">Staff</a> OR <a href="{{ route('supplierLogin') }}" style="text-align: center">Supplier</a>
+                            <div class="row mb-0 ">
+                                <div class="col-md-4 offset-md-5">
+                                    <a href="{{ route('adminLogin') }}" style="text-align: center">Staff</a> OR <a
+                                        href="{{ route('login') }}" style="text-align: center">Student</a>
                                 </div>
                             </div>
                         </form>

@@ -22,19 +22,7 @@ class OrderController extends Controller
         
         $programmeID = User::select('programmeID')
         ->where('id',$id)->first()->toArray();
-        
-        
-        
-        // $programmeID = DB::table('users')
-        // ->select('programmeID')
-        // ->where('id','=',$id)
-        // ->get();
-        
-        
-        // $programmeID = json_decode( json_encode($programmeID), true);
-        // $programmeID = $programmeID[0]['programmeID'];
-        
-        
+            
         $subjectID = DB::table('programmesubject')
         ->where('programmeID','=', $programmeID['programmeID'])
         ->pluck('subjectID')
@@ -266,9 +254,6 @@ class createCart{
     }
     
     function addSubjectCart($subjectID,$id){
-        // $cart = cart::where('userID',$id)->first();
-        
-        
         $cart = DB::table('cart')
         ->where('userID','=',$id)
         ->select('cartID')
@@ -290,12 +275,7 @@ class createCart{
         ->where('subjectID',$subjectID)
         ->first();
         
-        // $subjectQuantity = DB::table('cart_subject')
-        // ->select('Quantity')
-        // ->where('subjectID', '=', $subjectID)
-        // ->get();
-        
-        if(is_null($subjectQuantity)){
+         if(is_null($subjectQuantity)){
             DB::table('cart_subject')->insert([
                 'cartID'    => $cartID,
                 'subjectID' => $subjectID,

@@ -31,9 +31,9 @@
                                                     <td class="">
                                                         {{ $faculty_name }}
                                                     </td>                                                    
-                                                    <td class="">
+                                                    <!-- <td class="">
                                                         <a href="\editUserAccount\{$faculty}}" class="btn btn-primary">Edit</a>
-                                                    </td>                                                   
+                                                    </td>                                                    -->
                                                 </tr>
                                                 @php
                                                     $i++;

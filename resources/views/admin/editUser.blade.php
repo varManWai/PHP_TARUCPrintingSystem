@@ -219,6 +219,12 @@
                                         </div>
                                     </div>
                                 </form>
+
+                                <div class="d-flex justify-content-center my-5">
+                                    <div class="col-md-1">
+                                        <a href="{{ route('usersDashboard') }}" class="btn btn-dark " >Back</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

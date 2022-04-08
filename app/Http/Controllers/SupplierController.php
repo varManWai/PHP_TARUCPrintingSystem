@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Supplier;
+use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,22 +12,66 @@ use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth');
+    public function supplierLogout(Request $request){
+        if(Auth::guard('supplier')->check()) // this means that the admin was logged in.
+        {
+            Auth::guard('supplier')->logout();
+            return redirect()->route('supplierLogin');
+        }
+    
+        $this->guard()->logout();
+        $request->session()->invalidate();
+    
+        dd('end');
+
+        return $this->loggedOut($request) ?: redirect()->route('supplierLogin');
     }
 
-    public function index()
+    public function orderStatusDashboard()
     {
 
-        $suppliers = DB::table('suppliers')->select('*')->get();
+        $orders = DB::table('order') ->join('users', 'users.id', '=', 'order.userID')->where('order.status', '!=', 'Completed')->select('order.*','users.name AS username')->get();
 
-        return view('admin.supplierDashboard')->with('suppliers',$suppliers);
+        return view('supplier.orderStatus')->with('orders',$orders);
 
     }
+
 
     public function addSupplier(){
         return view('admin.addSupplier');
+    }
+
+
+    public function editOrderStatus($id){
+        
+        $order = order::where('orderID',$id)->first();
+
+        return view('supplier.editStatus')->with('userID',$id)->with('order',$order);
+    } 
+
+    
+
+    public function editedOrderStatus(Request $request)
+    {
+        $this->validate($request, [
+            'status' => ['required'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $order = order::where('orderID',$request->orderID)->first();
+
+        // dd($order);
+
+        //ASSIGN the new data to the user 
+        $order->status = $request->status;
+
+        //STORE the new data into database
+        $order->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Status updated');
+
     }
 
     public function addedSupplier(Request $request){
