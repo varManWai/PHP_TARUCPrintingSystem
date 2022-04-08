@@ -40,22 +40,6 @@ Route::post('/supplierLogin', [SupplierLoginController::class, 'store'])->name('
 //Required auth
 Auth::routes();
 
-//Faculty
-Route::get('/addfaculty', [FacultyController::class, 'index'])->name('addFaculty');
-Route::post('/addfaculty', [FacultyController::class, 'store']);
-Route::get('/facultydashboard', [FacultyController::class, 'retrieve'])->name('facultydashboard');
-
-//Programme
-Route::get('/addprogramme', [ProgrammeController::class, 'index'])->name('addProgramme');
-Route::post('/addprogramme', [ProgrammeController::class, 'store']);
-Route::get('/programmedashboard', [ProgrammeController::class, 'retrieve'])->name('programmedashboard');
-
-//Subject
-Route::get('/addsubject',[SubjectController::class, 'index']) -> name('addSubject');
-Route::post('/addsubject',[SubjectController::class,'store']);
-Route::get('/subjectdashboard', [SubjectController::class, 'retrieve'])->name('subjectdashboard');
-Route::get("/xmlSubject", [SubjectController::class,'viewInXml']);
-
 //Order
 Route::get('/order', [OrderController::class, 'index'])->name('Order');
 Route::post('/order', [OrderController::class, 'addCart'])->name('AddCart');
@@ -132,6 +116,21 @@ Route::group(['middleware' => ['web','auth:admin'], 'prefix' => 'admins'], funct
     Route::post('/editAdminPhoneNo', [AdminController::class, 'editAdminPhoneNo'])->name('editAdminPhoneNo');
     Route::post('/adminLogout', [AdminController::class, 'adminLogout'])->name('adminLogout');
 
+//Faculty
+Route::get('/addfaculty', [FacultyController::class, 'index'])->name('addFaculty');
+Route::post('/addfaculty', [FacultyController::class, 'store']);
+Route::get('/facultydashboard', [FacultyController::class, 'retrieve'])->name('facultydashboard');
+
+//Programme
+Route::get('/addprogramme', [ProgrammeController::class, 'index'])->name('addProgramme');
+Route::post('/addprogramme', [ProgrammeController::class, 'store']);
+Route::get('/programmedashboard', [ProgrammeController::class, 'retrieve'])->name('programmedashboard');
+
+//Subject
+Route::get('/addsubject',[SubjectController::class, 'index']) -> name('addSubject');
+Route::post('/addsubject',[SubjectController::class,'store']);
+Route::get('/subjectdashboard', [SubjectController::class, 'retrieve'])->name('subjectdashboard');
+Route::get("/xmlSubject", [SubjectController::class,'viewInXml']);
 
 });
 
