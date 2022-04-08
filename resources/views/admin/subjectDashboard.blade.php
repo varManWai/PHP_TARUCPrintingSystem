@@ -7,7 +7,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 ">
                                                       
-                            <a href="/xmlSubject" class="btn btn-dark btn-sm" role="button" aria-pressed="true">View in XML form</a> 
+                            <a href="/xmlSubject" target="_blank" class="btn btn-dark btn-sm" role="button" aria-pressed="true">View in XML form</a> 
                             <div class="card-header ">Lists of subjects available</div> 
                              
                             <div class="card-body table-responsive-xl">
