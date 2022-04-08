@@ -130,7 +130,7 @@ Route::get('/programmedashboard', [ProgrammeController::class, 'retrieve'])->nam
 Route::get('/addsubject',[SubjectController::class, 'index']) -> name('addSubject');
 Route::post('/addsubject',[SubjectController::class,'store']);
 Route::get('/subjectdashboard', [SubjectController::class, 'retrieve'])->name('subjectdashboard');
-Route::get("/xmlSubject", [SubjectController::class,'viewInXml']);
+Route::get('/xmlSubject', [SubjectController::class,'viewInXml']);
 
 });
 
