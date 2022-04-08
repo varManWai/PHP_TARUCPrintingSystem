@@ -50,6 +50,8 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -57,7 +59,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phoneNo' => ['string', 'min:10','max:11','nullable'],
-            'programmeID'=> ['string','nullable'],
+            'programmeID'=> ['string','required'],
         ]);
     }
 

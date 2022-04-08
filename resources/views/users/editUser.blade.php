@@ -193,16 +193,14 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <input id="programmeID" type="programmeID"
-                                                class="form-control @error('programmeID') is-invalid @enderror"
-                                                name="programmeID" value="{{ old('programmeID') }}" required
-                                                autocomplete="programmeID">
-
-                                            @error('programmeID')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <select id="programmeID" name="programmeID" class="form-select"
+                                                aria-label="Default select example">
+                                                @foreach ($programmes as $programme)
+                                                    <option value="{{ $programme->programmeID }}">
+                                                        {{ $programme->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="col-md-1 ">
@@ -217,10 +215,11 @@
 
                                 <div class="d-flex justify-content-center my-5">
                                     <div class="col-md-2">
-                                        <a href="{{ __('deleteAccount') }}" class="btn btn-danger " >Delete Account</a>
+                                        <a href="{{ __('deleteAccount') }}" class="btn btn-danger ">Delete Account</a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="{{ route('home') }}" class="btn btn-white " style="border: gray solid 1px;" >Back</a>
+                                        <a href="{{ route('home') }}" class="btn btn-white "
+                                            style="border: gray solid 1px;">Back</a>
                                     </div>
                                 </div>
                             </div>

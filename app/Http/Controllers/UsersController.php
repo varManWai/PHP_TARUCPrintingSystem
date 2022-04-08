@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Programme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +25,9 @@ class UsersController extends Controller
 
     public function edit(Request $request)
     {
-
-        return view('users.editUser');
+        $programmes = Programme::all();
+        
+        return view('users.editUser')->with('programmes',$programmes);
     }
 
     public function editName(Request $request)
@@ -122,7 +124,7 @@ class UsersController extends Controller
     {
         //VALIDATE INPUT
         $this->validate($request, [
-            'programmeID' => ['string', 'nullable'],
+            'programmeID' => ['string', 'required'],
         ]);
 
         //UPDATE USER
