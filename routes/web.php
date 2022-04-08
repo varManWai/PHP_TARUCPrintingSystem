@@ -52,7 +52,6 @@ Route::post('/cartRemove', [OrderController::class, 'removeFromCart'])->name('re
 
 //Payment
 route::post('/payment', [OrderController::class, 'createOrder'])->name('createOrder');
-route::get('/test', [OrderController::class, 'test']);
 route::get('/proceedPay',[OrderController::class, 'proceedPay']);
 Route::get('/paymentBtn/{totalPrice}', function ($totalPrice) {
     return view('orders.paymentBtn')->with('totalPrice',$totalPrice);
