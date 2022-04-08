@@ -18,7 +18,7 @@
                                                 <th scope="col" class="">Course Code</th>
                                                 <th scope="col" class="">Title</th> 
                                                 <th scope="col" class="">Pages</th>  
-                                                <th scope="col" class="">Price</th>  
+                                                <th scope="col" class="">Price (RM)</th>  
                                                 <th scope="col" class="">Image</th>                                                
                                             </tr>
                                         </thead>
@@ -28,20 +28,34 @@
                                             @endphp
                                                 
                                             @foreach ($subjects as $subject)
+                                                @php                                                
+                                                $fileName = substr($subject['image'],22);
+                                                @endphp
                                                 <tr class="">
                                                     <td class="">
                                                         {{ $i }}
                                                     </td>
                                                     <td class="">
-                                                        {{$programme['programme_name']}}
+                                                        {{$subject['courseCode']}}
                                                     </td>
                                                     <td class="">
-                                                        {{$programme['faculty_name'] }}
-                                                    </td>                                                    
+                                                        {{$subject['title']}}
+                                                    </td>
                                                     <td class="">
-                                                        <a href="\editProgramme\{$programme['programmeID']}}" class="btn btn-primary">Edit</a>
-                                                    </td>                                                   
-                                                </tr>
+                                                        {{$subject['pages'] }}
+                                                    </td>   
+                                                    <td class="">
+                                                        {{$subject['price'] }}
+                                                    </td> 
+                                                    <td class="">  
+                                                        <div class="" style="max-height: 10rem; max-width:20rem;overflow:hidden;">                                                                                                                                                                                                     
+                                                            <img src="{{ asset('storage/image/subjects/'.$fileName.'') }}" class="card-img-top" alt="...">
+                                                        </div>
+                                                    </td>                                                  
+                                                    <td class="">
+                                                        <a href="\editProgramme\{$subject['subjectid']}}" class="btn btn-primary">Edit</a>
+                                                    </td>    
+                                                </tr>                                              
                                                 @php
                                                     $i++;
                                                 @endphp

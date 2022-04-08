@@ -82,7 +82,7 @@ class SubjectController
         $stmt = $pdo->prepare("SELECT * FROM subject");
         $stmt->execute();
         $subjectArr = $stmt->fetchAll();
-        return view('admin.subjectDashboard')->with('programmes',$subjectArr);         
+        return view('admin.subjectDashboard')->with('subjects',$subjectArr);         
         
     }
 
