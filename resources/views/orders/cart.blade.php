@@ -1,3 +1,4 @@
+{{-- Author: Nizar Bin Hamid --}}
 @extends('layouts.app')
 @php
 $totalPrice = 0;
