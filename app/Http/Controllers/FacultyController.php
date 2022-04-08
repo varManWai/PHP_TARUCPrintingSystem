@@ -26,12 +26,27 @@ class FacultyController
         $stmt = $pdo->prepare("INSERT INTO faculty (facultyID, name) VALUES (:facultyID, :name)");
         $stmt->bindParam('facultyID',  $facultyID);
         $stmt->bindParam('name', $facultyName);
-        
         if($stmt->execute()){            
-            return redirect()->back()->withErrors(['message' => 'Faculty has been created']);
+            return $this->retrieve();
         }else {
             return redirect()->back()->withErrors(['message' => 'Try again']);
-        }                
+        } 
+                     
+    }
+
+    public function retrieve(){
+
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $stmt = $pdo->prepare("SELECT * FROM faculty");
+        $stmt->execute();
+        $facultyArr;
+        while($row = $stmt->fetch()){
+            $facultyArr[$row['facultyID']] = $row['name'];
+        }
+        return view('admin.facultyDashboard')->with('faculties',$facultyArr);
+        
     }
 }
 

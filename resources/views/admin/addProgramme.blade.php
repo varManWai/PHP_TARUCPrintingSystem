@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -39,7 +39,7 @@
                        
                             <div class="col-md-6">
                                 @foreach ($faculties as $faculty => $faculty_name )
-                                <div class="form-check">
+                                <div class="form-check" >
                                     <input type="radio" class="form-check-input" id="{{$faculty}}" name="facultyID" value="{{$faculty}}">{{ $faculty_name }}         
                                     <label class="form-check-label" for="radio{{$faculty}}"></label>                          
                                 </div>                                
