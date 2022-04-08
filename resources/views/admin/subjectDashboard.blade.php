@@ -6,9 +6,10 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 ">
-                        <div class="card mt-3">
-                            <div class="card-header ">Lists of subjects available</div>
-
+                                                      
+                            <a href="/xmlSubject" class="btn btn-dark btn-sm" role="button" aria-pressed="true">View in XML form</a> 
+                            <div class="card-header ">Lists of subjects available</div> 
+                             
                             <div class="card-body table-responsive-xl">
 
                                     <table class="table table-hover">
@@ -59,7 +60,7 @@
                                                 @php
                                                     $i++;
                                                 @endphp
-                                            @endforeach
+                                            @endforeach                                            
                                         </tbody>
                                     </table>                 
                             </div>

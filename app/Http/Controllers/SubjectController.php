@@ -3,19 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\ArrayToXml\ArrayToXml;
+
 use \PDO;
 
 class SubjectController 
 {
     public function index(){
-        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
-        $stmt = $pdo->prepare("SELECT * from programme");
-        $stmt->execute();
-        $programmeArr;
-        while($row =  $stmt->fetch()){
-            $programmeArr[$row['programmeID']] = $row['name'];
-        }
-        return view('admin.addSubject')->with('programmes',$programmeArr);
+
+            $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+            $stmt = $pdo->prepare("SELECT * from programme");
+            $stmt->execute();
+            $programmeArr;
+            while($row =  $stmt->fetch()){
+                $programmeArr[$row['programmeID']] = $row['name'];
+            }
+            return view('admin.addSubject')->with('programmes',$programmeArr);
+                
     }
     
     public function store(Request $request){
@@ -83,6 +87,74 @@ class SubjectController
         $stmt->execute();
         $subjectArr = $stmt->fetchAll();
         return view('admin.subjectDashboard')->with('subjects',$subjectArr);         
+        
+    }
+
+    public function viewInXml()
+    {
+        // composer require spatie/array-to-xml
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $stmt = $pdo->prepare("SELECT * FROM subject");
+        $stmt->execute();
+        $subjectArr = $stmt->fetchAll();       
+        $this->createXMLfile($subjectArr);
+        
+        $xml = new \DOMDocument();
+        $xml->load('xsl\subjects.xml');
+
+        $xsl = new \DOMDocument();
+        $xsl->load('xsl\subjects.xsl');
+
+        $proc = new \XSLTProcessor();
+
+        $proc->importStyleSheet($xsl);
+
+        echo $proc->transformToXML($xml);       
+
+    }
+
+    public function createXMLfile($datas){
+        $filePath = '../public/xsl/subjects.xml';
+        $dom     = new \DOMDocument('1.0', 'utf-8'); 
+        $dom->appendChild($dom->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="subjects.xsl"'));
+        $root      = $dom->createElement('subjects');
+        
+        
+        foreach($datas as $dataItem){
+        
+            $subjectID =  $dataItem["subjectID"];              
+            $courseCode =  $dataItem["courseCode"];  
+            $title =  $dataItem["title"];  
+            $pages =  $dataItem["pages"];  
+            $price =  $dataItem["price"];
+            $image =  $dataItem["image"];
+            
+            $subject = $dom->createElement('subject');
+
+            $ID = $dom->createElement('subjectID',  $subjectID); 
+            $subject->appendChild($ID);
+            
+            $subjectCourseCode = $dom->createElement('courseCode', $courseCode); 
+            $subject->appendChild($subjectCourseCode);
+            
+            $subjectTitle = $dom->createElement('title', $title); 
+            $subject->appendChild($subjectTitle); 
+            
+            $subjectPages = $dom->createElement('pages', $pages); 
+            $subject->appendChild($subjectPages);
+            
+            $subjectPrice = $dom->createElement('price', $price); 
+            $subject->appendChild($subjectPrice);
+
+            $subjectImage = $dom->createElement('image', $image); 
+            $subject->appendChild($subjectImage);
+            
+            $root->appendChild($subject);
+        }
+        $dom->appendChild($root); 
+        $dom->save($filePath); 
         
     }
 
