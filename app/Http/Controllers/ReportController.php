@@ -178,77 +178,58 @@ class ReportController extends Controller
 
 
 abstract class observer{
-    protected $subject;
+    protected $subjectObserver;
     public abstract function update();
 }
 
-class report extends subjectObserver{
-    private $totalSales;
-    private $numberOfSales;
-    private $totalSalesToday;
-    private $numberOfSalesToday;
-    private $averageRevenuePerSales;
-    private $highestSalesOfTheDay;
+class orders extends subjectObserver{
+    private $orderID;
+    private $totalPrice;
+    private $date;
+    private $userID;
     
-    public function __construct($totalSales, $numberOfSales, $totalSalesToday, 
-    $numberOfSalesToday, $averageRevenuePerSales, 
-    $highestSalesOfTheDay)
+    public function __construct($orderID, $totalPrice, $date, $userID)
     {
-        $this->totalSales = $totalSales;
-        $this->numberOfSales = $numberOfSales;
-        $this->totalSalesToday = $totalSalesToday;
-        $this->numberOfSalesToday = $numberOfSalesToday;
-        $this->averageRevenuePerSales = $averageRevenuePerSales;
-        $this->highestSalesOfTheDay = $highestSalesOfTheDay;
-        
+        $this->orderID = $orderID;
+        $this->totalPrice = $totalPrice;
+        $this->date = $date;
+        $this->userID = $userID;
     }
     
-    public function getTotalSales() {
-        return $this->totalSales;
+    public function getOrderID() {
+        return $this->orderID;
     }
     
-    public function setTotalSales($totalSales) {
-        $this->totalSales = $totalSales;
+    public function setOrderID($orderID) {
+        $this->orderID = $orderID;
     }
     
-    public function getNumberOfSales() {
-        return $this->numberOfSales;
+    public function getTotalPrice() {
+        return $this->totalPrice;
     }
     
-    public function setNumberOfSales($numberOfSales) {
-        $this->numberOfSales = $numberOfSales;
+    public function setTotalPrice($totalPrice) {
+        $this->totalPrice = $totalPrice;
+    }
+
+    public function getDate() {
+        return $this->date;
     }
     
-    public function getTotalSalesToday() {
-        return $this->totalSalesToday;
+    public function setDate($date) {
+        $this->date = $date;
+    }
+
+    public function getUserID() {
+        return $this->userID;
     }
     
-    public function setTotalSalesToday($totalSalesToday) {
-        $this->totalSalesToday = $totalSalesToday;
+    public function setUserID($userID) {
+        $this->userID = $userID;
     }
     
-    public function getNumberOfSalesToday() {
-        return $this->numberOfSalesToday;
-    }
-    
-    public function setnumberOfSalesToday($numberOfSalesToday) {
-        $this->numberOfSalesToday = $numberOfSalesToday;
-    }
-    
-    public function getAverageRevenuePerSales() {
-        return $this->averageRevenuePerSales;
-    }
-    
-    public function setAverageRevenuePerSales($averageRevenuePerSales) {
-        $this->averageRevenuePerSales = $averageRevenuePerSales;
-    }
-    
-    public function getHighestSalesOfTheDay() {
-        return $this->highestSalesOfTheDay;
-    }
-    
-    public function setHighestSalesOfTheDay($highestSalesOfTheDay) {
-        $this->highestSalesOfTheDay = $highestSalesOfTheDay;
+    public function callObservers(){
+        $this->notifyObservers();
     }
     
 }
@@ -257,29 +238,51 @@ class subjectObserver{
     private $observers;
     
     function __construct() {
-        $this->observers = new SplObjectStorage();
+        $this->observers = new \SplObjectStorage();
     }
     
-    public function attach($ReportObserver) {
-        $this->observers->attach($ReportObserver);
+    public function attach($observer) {
+        $this->observers->attach($observer);
     }
     
     public function notifyObservers() {
-        $this->observers->update();
+        foreach ($this->observers as $observer) {
+            $observer->update();
+        }
     }
 }
 
-class ReportObserver extends observer{
-    function __construct($subject) {
-        $this->subject = $subject;
-        $this->subject->attach($this);
-    }
-    
-    public function calculation(){
-        $this->subject->getTotalSales();
+class DailyObserver extends observer{
+    function __construct($subjectObserver) {
+        $this->subjectObserver = $subjectObserver;
+        $this->subjectObserver->attach($this);
     }
     
     public function update() {
-        $this->subject->getTotalSales();
+        $this->generateDaily();
     }
 }
+
+class MonthlyObserver extends observer{
+    function __construct($subjectObserver) {
+        $this->subjectObserver = $subjectObserver;
+        $this->subjectObserver->attach($this);
+    }
+    
+    public function update() {
+        $this->generateMonthly();
+    }
+}
+
+
+class YearlyObserver extends observer{
+    function __construct($subjectObserver) {
+        $this->subjectObserver = $subjectObserver;
+        $this->subjectObserver->attach($this);
+    }
+    
+    public function update() {
+        $this->generateYearly();
+    }
+}
+
