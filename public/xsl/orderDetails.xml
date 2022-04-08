@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="orderDetails.xsl"?>
+<orderDetails><SubjectDetail><subjectTitle>Information Technology</subjectTitle><subjectPages>5</subjectPages><Qty>4</Qty><subjectTotal>20</subjectTotal></SubjectDetail><SubjectDetail><subjectTitle>Computer Stuff </subjectTitle><subjectPages>4</subjectPages><Qty>1</Qty><subjectTotal>4</subjectTotal></SubjectDetail><TotalPrice>24</TotalPrice></orderDetails>
