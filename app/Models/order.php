@@ -9,4 +9,5 @@ class order extends Model
 {
     use HasFactory;
     protected $table = 'order';
+    protected $guarded = [];
 }
