@@ -1,3 +1,4 @@
+{{-- Author:ChanOwen --}}
 @extends('layouts.supplier')
 
 @section('content')

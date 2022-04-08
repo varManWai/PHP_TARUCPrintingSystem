@@ -1,5 +1,5 @@
 <?php
-
+// {{-- Author: Nizar Bin Hamid --}}
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class OrderController extends Controller
         
         $programmeID = User::select('programmeID')
         ->where('id',$id)->first()->toArray();
-            
+        
         $subjectID = DB::table('programmesubject')
         ->where('programmeID','=', $programmeID['programmeID'])
         ->pluck('subjectID')
@@ -40,13 +40,13 @@ class OrderController extends Controller
         
         return redirect()->back()->with('success', $success);
     }
-
+    
     public function cartIndex(){
         if(!auth()->user()){
             return view('orders.noUser');
         }
         $id = Auth::user()->id;
-       
+        
         $subjectID = $this->findSubjectId($id);
         
         if(empty($subjectID)){
@@ -54,25 +54,25 @@ class OrderController extends Controller
         }
         return view('orders.cart')->with('subjectID',$subjectID);
     }
-
+    
     public function addCartFromCart(Request $request){
         $id = Auth::user()->id;
         $orderFacade = new OrderFacade;
         $success = $orderFacade->insertCart($request->input('subjectID'),$id);
-
+        
         $subjectID = $this->findSubjectId($id);
         if(empty($subjectID)){
             return view('orders.noItemInCart');
         }
-
+        
         $data = [
             'success' => $success,
             'subjectID' => $subjectID
         ];
-
+        
         return view('orders.cart')->with($data);
     }
-
+    
     public function reduceCart(Request $request){
         $id = Auth::user()->id;
         $orderFacade = new OrderFacade;
@@ -90,14 +90,14 @@ class OrderController extends Controller
         ];
         return view('orders.cart')->with($data);
     }
-
+    
     public function removeFromCart(Request $request){
         $id = Auth::user()->id;
         $orderFacade = new OrderFacade;
         $subjectID = $request->input('subjectID');
         
         $success = $orderFacade->deleteCart($subjectID,$id);
-
+        
         $subjectID = $this->findSubjectId($id);
         if(empty($subjectID)){
             return view('orders.noItemInCart');
@@ -108,28 +108,38 @@ class OrderController extends Controller
         ];
         return view('orders.cart')->with($data);
     }
-
+    
     public function createOrder(Request $request){
         $id = Auth::user()->id;
         $orderFacade = new OrderFacade;
         $totalPrice = $request->input('totalPrice');
         $pickUpMethod = $request->input('pickupMethod');
         $orderFacade->insertUserOrder($id,$totalPrice,$pickUpMethod);
-
+        
         return view('orders.paymentSuccess');
     } 
-
-    public function test(){
+    
+    public function proceedPay(){
+        $xml = new \DOMDocument();
+        $xml->load('xsl\orderDetails.xml');
         
-
+        $xsl = new \DOMDocument();
+        $xsl->load('xsl\orderDetails.xsl');
+        
+        $proc = new \XSLTProcessor();
+        
+        $proc->importStyleSheet($xsl);
+        
+        echo $proc->transformToXML($xml);
+        
     }
-
+    
     function findSubjectId($id){
         $orderFacade = new OrderFacade;
         $cart = cart::select('cartID')
         ->where('userID',$id)
         ->first();
-
+        
         if(is_null($cart)){
             $cartID = $orderFacade->createUserCart($id);
             
@@ -162,24 +172,24 @@ class OrderFacade{
         $cartID = $this->createCart->createUserCart($id);
         return $cartID;
     }
-
+    
     public function insertCart($subjectID,$id){
         $success = $this->createCart->addSubjectCart($subjectID,$id);
         return $success;
     }
-
+    
     public function minusCart($subjectID,$id){
         
         $success = $this->createCart->minusCart($subjectID,$id);
         return $success;
         
     }
-
+    
     public function deleteCart($subjectID,$id){
         $success = $this->createCart->removeCart($subjectID,$id);
         return $success;
     }
-
+    
     public function insertUserOrder($id,$totalPrice,$pickUpMethod){
         $orderID = $this->createOrder->createUserOrder($id,$totalPrice,$pickUpMethod);
         $success = $this->createOrder->createOrderSubjects($id,$orderID);
@@ -194,7 +204,7 @@ class CreateOrder{
     function createUserOrder($id,$totalPrice,$pickUpMethod){
         $date = date('Y-m-d');
         $orderID = DB::table('order')->insertGetId(
-        [   'totalPrice' => $totalPrice,
+            [   'totalPrice' => $totalPrice,
             'date' => $date,  
             'status' => 'Processing',
             'pickUpMethod' => $pickUpMethod,
@@ -202,7 +212,7 @@ class CreateOrder{
         ]);
         return $orderID;
     }
-
+    
     function createOrderSubjects($id,$orderID){
         $cart = cart::select('cartID')
         ->where('userID',$id)
@@ -215,21 +225,21 @@ class CreateOrder{
         ->where('cartID','=',$cartID)
         ->get()
         ->toArray();
-
+        
         foreach($subjectID as $subjects){
             $idSubject = $subjects->subjectID;
             $Qty = $subjects->Quantity;
-
+            
             DB::table('order_subject')->insert([
                 'orderID'    => $orderID,
                 'subjectID' => $idSubject,
                 'Quantity'  => $Qty
             ]);
-
+            
         }
         return $success = 'Added to Cart';
     }
-
+    
     function removeUserCart($id){
         $cart = DB::table('cart')
         ->where('userID','=',$id)
@@ -241,7 +251,7 @@ class CreateOrder{
         ->where('cartID','=',$cartID)
         ->delete();
     }
-
+    
 }
 
 class createCart{
@@ -275,7 +285,7 @@ class createCart{
         ->where('subjectID',$subjectID)
         ->first();
         
-         if(is_null($subjectQuantity)){
+        if(is_null($subjectQuantity)){
             DB::table('cart_subject')->insert([
                 'cartID'    => $cartID,
                 'subjectID' => $subjectID,
@@ -319,10 +329,10 @@ class createCart{
             ->delete();
             return $success = 'Subject removed';
         }
-
+        
         return $success = 'Subject reduced';
     }
-
+    
     function removeCart($subjectID,$id){
         $cart = DB::table('cart')
         ->where('userID','=',$id)
@@ -334,7 +344,7 @@ class createCart{
         ->where('cartID','=',$cartID)
         ->where('subjectID','=', $subjectID)
         ->delete();
-
+        
         return $success = 'Deleted from cart';
     }
 }
