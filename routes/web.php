@@ -14,6 +14,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\XMLController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -90,7 +91,7 @@ Route::get('/', [HomeController::class, 'index']);
 //Report
 Route::group(['middleware' => ['web','auth:admin'], 'prefix' => 'admins'], function () {
 
-
+    Route::get('/allusers', [XMLController::class, 'displayXML'])->name('allUsers');
 
 //User Acc Dashboard
     Route::get('/usersDashboard', [AdminController::class, 'index'])->name('usersDashboard');
