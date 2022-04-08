@@ -7,15 +7,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10 ">
                         <div class="card mt-3">
-                            <a href="{{ route('addSupplierAccount') }}" class="btn btn-primary">Add New Supplier</a>
+                            <a href="{{ route('addAdminAccount') }}" class="btn btn-primary">Add New Admin</a>
                         </div>
                         <div class="card mt-3">
-
-                            @if (session('status'))
-                                <div class="alert alert-success">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
 
                             @if (session('delete'))
                                 <div class="alert alert-danger">
@@ -23,10 +17,10 @@
                                 </div>
                             @endif
 
-                            <div class="card-header ">Suppliers Account Management</div>
+                            <div class="card-header ">Admin Account Management</div>
 
                             <div class="card-body table-responsive-xl">
-                                @if (count($suppliers) == 0)
+                                @if (count($admins) == 0)
                                     <h2>Nothing here</h2>
                                 @else
                                     <table class="table  table-hover">
@@ -36,40 +30,41 @@
                                                 <th scope="col" class="">Name</th>
                                                 <th scope="col" class="">Email</th>
                                                 <th scope="col" class="">Phone No.</th>
-                                                <th scope="col" class="">Shop Name</th>
-                                                <th scope="col" class="">Location</th>
+                                                <th scope="col" class="">Created At</th>
+                                                <th scope="col" class="">Last Update</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php
                                                 $i = 1;
                                             @endphp
-                                            @foreach ($suppliers as $supplier)
+                                            @foreach ($admins as $admin)
                                                 <tr class="">
                                                     <td class="">
                                                         {{ $i }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $supplier->name }}
+                                                        {{ $admin->name }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $supplier->email }}
+                                                        {{ $admin->email }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $supplier->phoneNo }}
+                                                        {{ $admin->phoneNo }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $supplier->shopName }}
+                                                        {{ $admin->created_at }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $supplier->location }}
+                                                        {{ $admin->updated_at }}
                                                     </td>
                                                     <td class="">
-                                                        <a href="\editSupplierAccount\{{ $supplier->id }}"
+
+                                                        <a href="\editAdminAccount\{{ $admin->id }}"
                                                             class="btn btn-primary">Edit</a>
                                                     </td>
                                                     <td class="">
-                                                        <a href="\deleteSupplierAccount\{{ $supplier->id }}"
+                                                        <a href="\deleteAdminAccount\{{ $admin->id }}"
                                                             class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>

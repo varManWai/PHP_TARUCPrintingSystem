@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Programme;
+use App\Models\Admin;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,7 @@ class AdminController extends Controller
     }
 
     public function editUser($id){
-        $user = User::find(1);
+        $user = User::find($id);
 
         return view('admin.editUser')->with('userID',$id)->with('user',$user);
 
@@ -162,10 +163,340 @@ class AdminController extends Controller
         $user->delete();
 
         //REDIRECT ROUTE (To do the delete confirmation page)
-        return redirect()->route('usersDashboard');
+        return redirect()->route('usersDashboard')->with('delete','User Deleted');
     }
 
-    
+    //SUPPLIER
+    public function supplierDashboard()
+    {
+
+        $suppliers = DB::table('suppliers')->select('*')->get();
+
+        return view('admin.supplierDashboard')->with('suppliers',$suppliers);
+
+    }
+
+    public function addSupplier(){
+        return view('admin.addSupplier');
+    }
+
+    public function addedSupplier(Request $request){
+        
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phoneNo' => ['string', 'min:10','max:11','nullable'],
+            'shopName'=> ['string','nullable'],
+            'location'=> ['string','nullable'],
+        ]);
+
+        Supplier::create([
+            'name' => trim($request->name),
+            'email' =>trim($request->email),
+            'password' => Hash::make(trim($request->password)),
+            'phoneNo' => trim($request->phoneNo),
+            'shopName'=> trim($request->shopName),
+            'location'=> trim($request->location),
+        ]);
+        
+        return redirect()->route('suppliersDashboard')->with('status','Added a new printing supplier');
+    }
+
+    public function editSupplier($id){
+        $supplier = Supplier::find($id);
+
+        return view('admin.editSupplier')->with('userID',$id)->with('user',$supplier);
+
+    }
+
+    public function editSupplierName(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->name = trim($request->name);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Name updated');
+
+    }
+
+    public function editSupplierEmail(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->email = trim($request->email);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Email updated');
+
+    }
+
+    public function editSupplierPassword(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->password = Hash::make(trim($request->password));
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Password updated');
+
+    }
+
+    public function editSupplierPhoneNo(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'phoneNo' => ['string', 'min:11', 'max:12', 'nullable'],
+           
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->phoneNo = trim($request->phoneNo);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Phone No updated');
+
+    }
+
+    public function editSupplierShopName(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'shopName' => ['string', 'required'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->shopName = trim($request->shopName);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Shop Name updated');
+
+    }
+
+    public function editSupplierLocation(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'location' => ['string', 'required'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->location = trim($request->location);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Location updated');
+
+    }
+
+    public function deleteSupplier($id){
+
+        //GET the User by id
+        $user = Supplier::find($id);
+
+        //DELETE the user
+        $user->delete();
+
+        //REDIRECT ROUTE (To do the delete confirmation page)
+        return redirect()->route('suppliersDashboard')->with('delete','Supplier Deleted');
+    }
+
+    //Search ADMIN
+    public function adminDashboard()
+    {
+
+        $admin = DB::table('admins')->select('*')->get();
+
+        return view('admin.adminDashboard')->with('admins',$admin);
+
+    }
+
+    public function addAdmin(){
+        return view('admin.addAdmin');
+    }
+
+    public function addedAdmin(Request $request){
+        
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phoneNo' => ['string', 'min:10','max:11','nullable'],
+        ]);
+
+        Admin::create([
+            'name' => trim($request->name),
+            'email' =>trim($request->email),
+            'password' => Hash::make(trim($request->password)),
+            'phoneNo' => trim($request->phoneNo),
+        ]);
+        
+        return redirect()->route('adminDashboard')->with('status','Added a new admin account');
+    }
+
+    public function editAdmin($id){
+        $admin = Admin::find($id);
+
+        return view('admin.editAdmin')->with('userID',$id)->with('user',$admin);
+
+    }
+
+    public function editAdminName(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Admin::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->name = trim($request->name);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Name updated');
+
+    }
+
+    public function editAdminEmail(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Admin::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->email = trim($request->email);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Email updated');
+
+    }
+
+    public function editAdminPassword(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Admin::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->password = Hash::make(trim($request->password));
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Password updated');
+
+    }
+
+    public function editAdminPhoneNo(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'phoneNo' => ['string', 'min:11', 'max:12', 'nullable'],
+           
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Admin::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->phoneNo = trim($request->phoneNo);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Phone No updated');
+
+    }
+
+    public function deleteAdmin($id){
+
+        //GET the User by id
+        $user = Admin::find($id);
+
+        //DELETE the user
+        $user->delete();
+
+        //REDIRECT ROUTE (To do the delete confirmation page)
+        return redirect()->route('adminDashboard')->with('delete','Admin Deleted');
+    }
 }
 
 // interface AccountInterface{

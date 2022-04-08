@@ -84,7 +84,7 @@ Route::post('/generateDaily', [ReportController::class, 'generateDaily'])->name(
 Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
 Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
 
-//User Dashboard
+//User Acc Dashboard
 Route::get('/usersDashboard', [AdminController::class, 'index'])->name('usersDashboard');
 Route::get('/editUserAccount/{id}', [AdminController::class, 'editUser'])->name('editUserAccount');
 Route::get('/deleteUserAccount/{id}', [AdminController::class, 'deleteUser'])->name('deleteUserAccount');
@@ -94,10 +94,29 @@ Route::post('/editUserPassword', [AdminController::class, 'editUserPassword'])->
 Route::post('/editUserPhoneNo', [AdminController::class, 'editUserPhoneNo'])->name('editUserPhoneNo');
 Route::post('/editUserProgrammeID', [AdminController::class, 'editUserProgrammeID'])->name('editUserProgrammeID');
 
-//Supplier Dashboard
-Route::get('/suppliersDashboard', [SupplierController::class, 'index'])->name('suppliersDashboard');
-Route::get('/addSupplierAccount', [SupplierController::class, 'index'])->name('addSupplierAccount');
-// Route::get('/editSupplierAccount/{id}', [AdminController::class, 'index'])->name('editSupplierAccount');
-// Route::get('/deleteSupplierAccoun/{id}', [AdminController::class, 'index'])->name('deleteSupplierAccount');
+//Supplier Acc Dashboard
+Route::get('/suppliersDashboard', [AdminController::class, 'supplierDashboard'])->name('suppliersDashboard');
+Route::get('/addSupplierAccount', [AdminController::class, 'addSupplier'])->name('addSupplierAccount');
+Route::post('/addSupplierAccount', [AdminController::class, 'addedSupplier'])->name('addedSupplierAccount');
+Route::get('/editSupplierAccount/{id}', [AdminController::class, 'editSupplier'])->name('editSupplierAccount');
+Route::get('/deleteSupplierAccount/{id}', [AdminController::class, 'deleteSupplier'])->name('deleteSupplierAccount');
+Route::post('/editSupplierName', [AdminController::class, 'editSupplierName'])->name('editSupplierName');
+Route::post('/editSupplierEmail', [AdminController::class, 'editSupplierEmail'])->name('editSupplierEmail');
+Route::post('/editSupplierPassword', [AdminController::class, 'editSupplierPassword'])->name('editSupplierPassword');
+Route::post('/editSupplierPhoneNo', [AdminController::class, 'editSupplierPhoneNo'])->name('editSupplierPhoneNo');
+Route::post('/editSupplierShopName', [AdminController::class, 'editSupplierShopName'])->name('editSupplierShopName');
+Route::post('/editSupplierLocation', [AdminController::class, 'editSupplierLocation'])->name('editSupplierLocation');
+
+
+//Supplier Acc Dashboard
+Route::get('/adminDashboard', [AdminController::class, 'adminDashboard'])->name('adminDashboard');
+Route::get('/addAdminAccount', [AdminController::class, 'addAdmin'])->name('addAdminAccount');
+Route::post('/addAdminAccount', [AdminController::class, 'addedAdmin'])->name('addedAdminAccount');
+Route::get('/editAdminAccount/{id}', [AdminController::class, 'editAdmin'])->name('editAdminAccount');
+Route::get('/deleteAdminAccount/{id}', [AdminController::class, 'deleteAdmin'])->name('deleteAdminAccount');
+Route::post('/editAdminName', [AdminController::class, 'editAdminName'])->name('editAdminName');
+Route::post('/editAdminEmail', [AdminController::class, 'editAdminEmail'])->name('editAdminEmail');
+Route::post('/editAdminPassword', [AdminController::class, 'editAdminPassword'])->name('editAdminPassword');
+Route::post('/editAdminPhoneNo', [AdminController::class, 'editAdminPhoneNo'])->name('editAdminPhoneNo');
 
 
