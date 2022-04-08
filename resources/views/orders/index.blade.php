@@ -18,13 +18,17 @@ use App\Models\subject;
         $subject = subject::where('subjectID',$subjectID)
         ->first()
         ->toArray();
+
+        $fileName = substr($subject['image'],23)
         @endphp
         
         <div class="col-4">
             <form action="{{ route('AddCart') }}" method="POST" > 
                 @csrf      
                 <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <div class="" style="max-height: 10rem; max-width:20rem;overflow:hidden;">
+                        <img src="{{ asset('storage/image/subjects/'.$fileName ) }}" class="card-img-top" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ $subject['title'] }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Course: {{ $subject['courseCode'] }}</h6>

@@ -76,7 +76,13 @@ class OrderController extends Controller
         if(empty($subjectID)){
             return view('orders.noItemInCart');
         }
-        return view('orders.cart')->with('subjectID',$subjectID);
+
+        $data = [
+            'success' => $success,
+            'subjectID' => $subjectID
+        ];
+
+        return view('orders.cart')->with($data);
     }
 
     public function reduceCart(Request $request){
@@ -90,7 +96,11 @@ class OrderController extends Controller
         if(empty($subjectID)){
             return view('orders.noItemInCart');
         }
-        return view('orders.cart')->with('subjectID',$subjectID);
+        $data = [
+            'success' => $success,
+            'subjectID' => $subjectID
+        ];
+        return view('orders.cart')->with($data);
     }
 
     public function removeFromCart(Request $request){
@@ -104,7 +114,11 @@ class OrderController extends Controller
         if(empty($subjectID)){
             return view('orders.noItemInCart');
         }
-        return view('orders.cart')->with('subjectID',$subjectID);
+        $data = [
+            'success' => $success,
+            'subjectID' => $subjectID
+        ];
+        return view('orders.cart')->with($data);
     }
 
     public function createOrder(Request $request){
