@@ -1,5 +1,9 @@
 <?php
 
+// Author:Lai Man Wai 
+
+
+
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;

@@ -23,6 +23,10 @@ class OrderController extends Controller
         $programmeID = User::select('programmeID')
         ->where('id',$id)->first()->toArray();
         
+        if(empty($programmeID['programmeID'])){
+            return view('orders.noItemInSubject');
+        }
+
         $subjectID = DB::table('programmesubject')
         ->where('programmeID','=', $programmeID['programmeID'])
         ->pluck('subjectID')
