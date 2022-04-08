@@ -41,4 +41,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function store(Request $request)
+    {
+
+        
+        if(!auth()->attempt($request->only('email','password'),$request->filled('remember'))){
+            return redirect()->route('adminLogin')->with('danger','Invalid Admin Details');
+        }
+
+        return redirect()->route('home');
+    }
+
 }

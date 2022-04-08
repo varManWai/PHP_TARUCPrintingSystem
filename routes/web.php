@@ -33,6 +33,8 @@ Route::post('/adminLogin', [AdminLoginController::class, 'store']);
 Route::get('/supplierLogin', [SupplierLoginController::class, 'index'])->name('supplierLogin');
 Route::post('/supplierLogin', [SupplierLoginController::class, 'store'])->name('supplierLogin');
 
+
+
 //USER
 //Required auth
 Auth::routes();
@@ -86,7 +88,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 //ADMIN
 //Report
-Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admins'], function () {
+Route::group(['middleware' => ['web','auth:admin'], 'prefix' => 'admins'], function () {
     Route::get('/123', function () {
         return view('report.report');
     });
@@ -134,7 +136,7 @@ Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admins'], func
     Route::post('/adminLogout', [AdminController::class, 'adminLogout'])->name('adminLogout');
 });
 
-Route::group(['middleware' => ['web', 'auth:supplier'], 'prefix' => 'suppliers'], function () {
+Route::group(['middleware' => ['web','auth:supplier'], 'prefix' => 'suppliers'], function () {
     Route::get('/orderStatusDashboard', [SupplierController::class, 'orderStatusDashboard'])->name('orderStatusDashboard');
     Route::get('/editOrderStatus/{id}', [SupplierController::class, 'editOrderStatus'])->name('editOrderStatus');
     Route::post('/editedOrderStatus', [SupplierController::class, 'editedOrderStatus'])->name('editedOrderStatus');

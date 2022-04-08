@@ -48,16 +48,17 @@ class AdminLoginController extends Controller
 
     public function index()
     {
-        return view('admin.login');
+        return view('admin.adminLogin');
     }
 
     public function store(Request $request)
     {
 
+        
         if(!Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
-            return redirect()->route('adminLogin')->with('danger','Invalid Supplier Details');
+            return redirect()->route('adminLogin')->with('danger','Invalid Admin Details');
         }
 
-        return redirect()->intended(route('adminDashboard'));
+        return redirect()->route('adminDashboard');
     }
 }

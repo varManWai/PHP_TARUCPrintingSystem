@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     public function supplierLogout(Request $request){
         if(Auth::guard('supplier')->check()) // this means that the admin was logged in.
         {
@@ -27,6 +22,8 @@ class SupplierController extends Controller
         $this->guard()->logout();
         $request->session()->invalidate();
     
+        dd('end');
+
         return $this->loggedOut($request) ?: redirect()->route('supplierLogin');
     }
 

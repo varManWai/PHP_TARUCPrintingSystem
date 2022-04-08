@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="orderHistories.xsl"?>
-<orderHistories><orderHistory><orderID>1</orderID><totalPrice>18</totalPrice><date>2022-04-08</date><status>Processing</status><pickUpMethod>Delivery</pickUpMethod></orderHistory><orderHistory><orderID>2</orderID><totalPrice>9</totalPrice><date>2022-04-08</date><status>Processing</status><pickUpMethod>Delivery</pickUpMethod></orderHistory></orderHistories>
+<orderHistories><orderHistory><orderID>1</orderID><totalPrice>11</totalPrice><date>0000-00-00</date><status>Processing</status><pickUpMethod>Walk-in</pickUpMethod></orderHistory><orderHistory><orderID>4</orderID><totalPrice>1212</totalPrice><date>2022-04-08</date><status>Delivering</status><pickUpMethod>Walk-In</pickUpMethod></orderHistory></orderHistories>

@@ -50,10 +50,22 @@
                                 </li>
                             @endif
 
-                            
+
 
                         @endguest
                         @auth
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('adminDashboard') }}">{{ __('Admins Management') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('suppliersDashboard') }}">{{ __('Suppliers Management') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('usersDashboard') }}">{{ __('Users Management') }}</a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -63,12 +75,8 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('editUser') }}">
-                                        {{ __('Setting') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('adminLogout') }}" onclick="event.preventDefault();
+                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -78,7 +86,7 @@
                                     </form>
                                 </div>
                             </li>
-                            @endauth
+                        @endauth
                     </ul>
                 </div>
             </div>
