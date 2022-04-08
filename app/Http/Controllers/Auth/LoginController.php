@@ -50,7 +50,7 @@ class LoginController extends Controller
             return redirect()->route('adminLogin')->with('danger','Invalid Admin Details');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('Order');
     }
 
 }
