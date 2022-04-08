@@ -19,7 +19,7 @@ use App\Models\subject;
         ->first()
         ->toArray();
 
-        $fileName = substr($subject['image'],23)
+        $fileName = substr($subject['image'],22);
         @endphp
         
         <div class="col-4">
@@ -27,7 +27,7 @@ use App\Models\subject;
                 @csrf      
                 <div class="card" style="width: 18rem;">
                     <div class="" style="max-height: 10rem; max-width:20rem;overflow:hidden;">
-                        <img src="{{ asset('storage/image/subjects/'.$fileName ) }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage/image/subjects/'.$fileName.'') }}" class="card-img-top" alt="...">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ $subject['title'] }}</h5>
