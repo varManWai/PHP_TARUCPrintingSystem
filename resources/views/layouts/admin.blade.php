@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'TARUC') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,8 +25,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ route('usersDashboard') }}">
+                    {{ config('app.name', 'TARUC') }} <b> Staff </b>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -44,7 +44,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has('adminLogin'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('adminLogin') }}">{{ __('Login') }}</a>
                                 </li>
@@ -55,15 +55,22 @@
                         @endguest
                         @auth
 
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('allUsers') }}" target="_blank">{{ __('All Users') }}</a>
+                            </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('adminDashboard') }}">{{ __('Admins Management') }}</a>
+                                <a class="nav-link"
+                                    href="{{ route('adminDashboard') }}">{{ __('Admins Management') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('suppliersDashboard') }}">{{ __('Suppliers Management') }}</a>
+                                <a class="nav-link"
+                                    href="{{ route('suppliersDashboard') }}">{{ __('Suppliers Management') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('usersDashboard') }}">{{ __('Users Management') }}</a>
+                                <a class="nav-link"
+                                    href="{{ route('usersDashboard') }}">{{ __('Users Management') }}</a>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -76,7 +83,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('adminLogout') }}" onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
+                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

@@ -14,6 +14,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\XMLController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -54,7 +55,6 @@ Route::get('/addsubject',[SubjectController::class, 'index']) -> name('addSubjec
 Route::post('/addsubject',[SubjectController::class,'store']);
 Route::get('/subjectdashboard', [SubjectController::class, 'retrieve'])->name('subjectdashboard');
 
-
 //Order
 Route::get('/order', [OrderController::class, 'index'])->name('Order');
 Route::post('/order', [OrderController::class, 'addCart'])->name('AddCart');
@@ -93,18 +93,8 @@ Route::get('/', [HomeController::class, 'index']);
 //ADMIN
 //Report
 Route::group(['middleware' => ['web','auth:admin'], 'prefix' => 'admins'], function () {
-    Route::get('/123', function () {
-        return view('report.report');
-    });
 
-
-
-Route::get('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
-Route::get('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
-Route::get('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
-Route::post('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
-Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
-Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
+    Route::get('/allusers', [XMLController::class, 'displayXML'])->name('allUsers');
 
 //User Acc Dashboard
     Route::get('/usersDashboard', [AdminController::class, 'index'])->name('usersDashboard');
@@ -140,6 +130,8 @@ Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->nam
     Route::post('/editAdminPassword', [AdminController::class, 'editAdminPassword'])->name('editAdminPassword');
     Route::post('/editAdminPhoneNo', [AdminController::class, 'editAdminPhoneNo'])->name('editAdminPhoneNo');
     Route::post('/adminLogout', [AdminController::class, 'adminLogout'])->name('adminLogout');
+
+
 });
 
 Route::group(['middleware' => ['web','auth:supplier'], 'prefix' => 'suppliers'], function () {
@@ -147,4 +139,12 @@ Route::group(['middleware' => ['web','auth:supplier'], 'prefix' => 'suppliers'],
     Route::get('/editOrderStatus/{id}', [SupplierController::class, 'editOrderStatus'])->name('editOrderStatus');
     Route::post('/editedOrderStatus', [SupplierController::class, 'editedOrderStatus'])->name('editedOrderStatus');
     Route::post('/supplierLogout', [SupplierController::class, 'supplierLogout'])->name('supplierLogout');
+
+    //Supplier Generate Report
+    Route::get('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
+    Route::get('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
+    Route::get('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
+    Route::post('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
+    Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
+    Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
 });
