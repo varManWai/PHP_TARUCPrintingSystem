@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="orderHistories.xsl"?>
-<orderHistories><orderHistory><orderID>1</orderID><totalPrice>18</totalPrice><date>2022-04-08</date><status>Processing</status><pickUpMethod>Delivery</pickUpMethod></orderHistory><orderHistory><orderID>2</orderID><totalPrice>9</totalPrice><date>2022-04-08</date><status>Processing</status><pickUpMethod>Delivery</pickUpMethod></orderHistory></orderHistories>

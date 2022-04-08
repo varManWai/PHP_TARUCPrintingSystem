@@ -73,6 +73,7 @@ Route::post('/deleteAccount', [UsersController::class, 'deletedAccount'])->name(
 
 //OrderHistory
 Route::get('/orderHistory', [OrderHistoryController::class, 'index'])->name('orderHistory');
+Route::get("/xmlOrderHistory", [OrderHistoryController::class,'loadXML']);
 
 //Home Page
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -83,6 +84,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/123', function () {
     return view('report.report');
 });
+
+
 
 Route::get('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
 Route::get('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
