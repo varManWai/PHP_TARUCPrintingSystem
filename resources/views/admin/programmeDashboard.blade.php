@@ -1,11 +1,16 @@
 @extends('layouts.admin')
-
+<!--
+author: Ho Wai Kit
+-->
 @section('content')
     <main>
         <div id="app">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 ">
+                    <div class="card mt-3">
+                            <a href="{{ route('addProgramme') }}" class="btn btn-primary">Add New Programme</a>
+                        </div> 
                         <div class="card mt-3">
                             <div class="card-header ">Lists of programmes available</div>
 
