@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('orderStatusDashboard') }}">
                     {{ config('app.name', 'TARUC') }} <b> Supplier </b>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
