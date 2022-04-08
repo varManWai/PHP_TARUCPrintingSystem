@@ -54,6 +54,10 @@ Route::post('/cartAdd',[OrderController::class,'addCartFromCart'])->name('addCar
 Route::post('/cartReduce',[OrderController::class,'reduceCart'])->name('reduceCart');
 Route::post('/cartRemove', [OrderController::class, 'removeFromCart'])->name('removeCart');
 
+//Payment
+route::post('/payment',[OrderController::class,'createOrder'])->name('createOrder');
+route::get('/test',[OrderController::class,'test']);
+
 //User Information
 Route::get('/editUser', [UsersController::class, 'edit'])->name('editUser');
 Route::post('/editName', [UsersController::class, 'editName'])->name('editName');
