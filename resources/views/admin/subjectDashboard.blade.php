@@ -1,12 +1,17 @@
 @extends('layouts.admin')
-
+<!--
+author: Ho Wai Kit
+-->
 @section('content')
     <main>
         <div id="app">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 ">
-                                                      
+                            <div class="card mt-3">
+                                <a href="{{ route('addSubject') }}" class="btn btn-primary">Add New Subject</a>
+                            </div>    
+                            <br/>                     
                             <a href="/xmlSubject" target="_blank" class="btn btn-dark btn-sm" role="button" aria-pressed="true">View in XML form</a> 
                             <div class="card-header ">Lists of subjects available</div> 
                              
