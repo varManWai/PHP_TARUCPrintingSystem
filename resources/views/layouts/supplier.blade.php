@@ -1,3 +1,5 @@
+{{-- Author:Lai Man Wai --}}
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
