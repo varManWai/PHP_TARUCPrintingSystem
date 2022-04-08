@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <main>
@@ -17,7 +17,7 @@
                                     </div>
                                 @endif
 
-                                <form method="POST" action="{{ route('editName') }}">
+                                <form method="POST" action="{{ route('editSupplierName') }}">
                                     @csrf
                                     <div class="row mb-5 mt-3">
                                         <label for="name"
@@ -26,7 +26,7 @@
                                         <div class="col-md-3">
                                             <input id="name" type="text"
                                                 class="form-control @error('name') is-invalid @enderror" name="name2"
-                                                value="{{ Auth::user()->name }}" autocomplete="name" autofocus
+                                                value="{{ $user->name }}" autocomplete="name" autofocus
                                                 placeholder="Micheal Jackson" disabled>
                                         </div>
 
@@ -42,6 +42,8 @@
                                             @enderror
                                         </div>
 
+                                        <input type="hidden" name="userID" value="{{ $userID }}" />
+
                                         <div class="col-md-1 ">
                                             <button type="submit" class="btn btn-dark">
                                                 {{ __('Update') }}
@@ -53,7 +55,7 @@
 
                                 <hr style="color: transparent" />
 
-                                <form method="POST" action="{{ route('editEmail') }}">
+                                <form method="POST" action="{{ route('editSupplierEmail') }}">
                                     @csrf
                                     <div class="row mb-5">
                                         <label for="email"
@@ -62,7 +64,7 @@
                                         <div class="col-md-3">
                                             <input id="email" type="email"
                                                 class="form-control @error('email') is-invalid @enderror" name="email2"
-                                                value="{{ Auth::user()->email }}" autocomplete="email"
+                                                value="{{ $user->email }}" autocomplete="email"
                                                 placeholder="example@gmail.com" disabled>
 
                                         </div>
@@ -80,6 +82,8 @@
                                             @enderror
                                         </div>
 
+                                        <input type="hidden" name="userID" value="{{ $userID }}" />
+
                                         <div class="col-md-1 ">
                                             <button type="submit" class="btn btn-dark">
                                                 {{ __('Update') }}
@@ -91,7 +95,7 @@
 
                                 <hr style="color: transparent" />
 
-                                <form method="POST" action="{{ route('editPassword') }}">
+                                <form method="POST" action="{{ route('editSupplierPassword') }}">
                                     @csrf
                                     <div class="row mb-3">
                                         <label for="password"
@@ -122,6 +126,8 @@
                                         </div>
                                     </div>
 
+                                    <input type="hidden" name="userID" value="{{ $userID }}" />
+
                                     <div class="row justify-content-end mb-5">
                                         <div class="col-md-9">
                                             <button type="submit" class="btn btn-dark">
@@ -136,7 +142,7 @@
                                 <hr style="color: transparent" />
 
 
-                                <form method="POST" action="{{ route('editPhoneNo') }}">
+                                <form method="POST" action="{{ route('editSupplierPhoneNo') }}">
                                     @csrf
                                     <div class="row mb-5">
                                         <label for="phoneNo"
@@ -145,7 +151,7 @@
                                         <div class="col-md-3">
                                             <input id="phoneNo" type="phoneNo"
                                                 class="form-control @error('phoneNo') is-invalid @enderror" name="phoneNo2"
-                                                value="{{ Auth::user()->phoneNo }}" required autocomplete="phoneNo"
+                                                value="{{ $user->phoneNo }}" required autocomplete="phoneNo"
                                                 placeholder="01X-XXXXXXX" disabled>
 
 
@@ -163,6 +169,8 @@
                                             @enderror
                                         </div>
 
+                                        <input type="hidden" name="userID" value="{{ $userID }}" />
+
                                         <div class="col-md-1 ">
                                             <button type="submit" class="btn btn-dark">
                                                 {{ __('Update') }}
@@ -174,34 +182,36 @@
                                 <hr style="color: transparent" />
 
 
-                                <form method="POST" action="{{ route('editProgrammeID') }}">
+                                <form method="POST" action="{{ route('editSupplierShopName') }}">
                                     @csrf
                                     <div class="row mb-5">
-                                        <label for="programmeID"
-                                            class="col-md-3 col-form-label text-md-end">{{ __('ProgrammeID') }}</label>
+                                        <label for="shopName"
+                                            class="col-md-3 col-form-label text-md-end">{{ __('Shop Name') }}</label>
 
                                         <div class="col-md-3">
-                                            <input id="programmeID" type="programmeID"
-                                                class="form-control @error('programmeID') is-invalid @enderror"
-                                                name="programmeID2" value="{{ Auth::user()->programmeID }}"
-                                                autocomplete="programmeID" disabled>
+                                            <input id="shopName" type="text"
+                                                class="form-control @error('shopName') is-invalid @enderror"
+                                                name="shopName2" value="{{ $user->shopName }}"
+                                                autocomplete="shopName" disabled>
 
 
                                         </div>
 
                                         <div class="col-md-3">
-                                            <input id="programmeID" type="programmeID"
-                                                class="form-control @error('programmeID') is-invalid @enderror"
-                                                name="programmeID" value="{{ old('programmeID') }}" required
-                                                autocomplete="programmeID">
+                                            <input id="shopName" type="shopName"
+                                                class="form-control @error('shopName') is-invalid @enderror"
+                                                name="shopName" value="{{ old('shopName') }}" required
+                                                autocomplete="shopName">
 
-                                            @error('programmeID')
+                                            @error('shopName')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
 
+                                        <input type="hidden" name="userID" value="{{ $userID }}" />
+
                                         <div class="col-md-1 ">
                                             <button type="submit" class="btn btn-dark">
                                                 {{ __('Update') }}
@@ -210,14 +220,50 @@
                                     </div>
                                 </form>
 
-                                <hr style="color: transparent" />
+                                <form method="POST" action="{{ route('editSupplierLocation') }}">
+                                    @csrf
+                                    <div class="row mb-5">
+                                        <label for="location"
+                                            class="col-md-3 col-form-label text-md-end">{{ __('Location') }}</label>
+
+                                        <div class="col-md-3">
+                                            <input id="location" type="location"
+                                                class="form-control @error('location') is-invalid @enderror"
+                                                name="location2" value="{{ $user->location }}"
+                                                autocomplete="location" disabled>
+
+
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <input id="location" type="location"
+                                                class="form-control @error('location') is-invalid @enderror"
+                                                name="location" value="{{ old('location') }}" required
+                                                autocomplete="location">
+
+                                            @error('location')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <input type="hidden" name="userID" value="{{ $userID }}" />
+
+                                        <div class="col-md-1 ">
+                                            <button type="submit" class="btn btn-dark">
+                                                {{ __('Update') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
 
                                 <div class="d-flex justify-content-center my-5">
                                     <div class="col-md-2">
-                                        <a href="{{ __('deleteAccount') }}" class="btn btn-danger " >Delete Account</a>
+                                        <a href="\deleteSupplierAccount\{{ $user->id }}" class="btn btn-danger " >Delete Account</a>
                                     </div>
-                                    <div class="col-md-2">
-                                        <a href="{{ route(suppliersDashboard) }}" class="btn btn-danger " >Back</a>
+                                    <div class="col-md-1">
+                                        <a href="{{ route('suppliersDashboard') }}" class="btn btn-dark " >Back</a>
                                     </div>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-        <xsl:for-each select="/orderHistorys/orderHistory">
+        <xsl:for-each select="/orderHistories/orderHistory">
             <tr>
                 <th scope="row" class="text-center"><xsl:value-of select="orderID"/></th>
                 <td class="text-center"><xsl:value-of select="totalPrice"/></td>

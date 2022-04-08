@@ -6,6 +6,12 @@ $totalPrice = 0;
 @section('content')
 <div class="container">
     <h1 class="text-center">Cart</h1>
+    @isset($success)
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ $success }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endisset
     <div class="container h-auto overflow-scroll" style="height: 25%">
         @foreach ($subjectID as $subject)
         @php

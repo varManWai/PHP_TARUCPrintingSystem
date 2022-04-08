@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Programme;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,29 +19,47 @@ class SupplierController extends Controller
     public function index()
     {
 
-        $users = DB::table('suppliers')->select('*')->get();
-        // $programmeID = DB::table('users')
-        // ->select('programmeID')
-        // ->where('id','=',$id)
-        // ->get();
-        // $programmeID = json_decode( json_encode($programmeID), true);
-        // $programmeID = $programmeID[0]['programmeID'];
+        $suppliers = DB::table('suppliers')->select('*')->get();
 
-        // dd($programmes);
-        
-
-        return view('admin.supplierDashboard')->with('users',$users);
+        return view('admin.supplierDashboard')->with('suppliers',$suppliers);
 
     }
 
-    public function editUser($id){
-        $user = User::find(1);
+    public function addSupplier(){
+        return view('admin.addSupplier');
+    }
+
+    public function addedSupplier(Request $request){
+        
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phoneNo' => ['string', 'min:10','max:11','nullable'],
+            'shopName'=> ['string','nullable'],
+            'location'=> ['string','nullable'],
+        ]);
+
+        Supplier::create([
+            'name' => trim($request->name),
+            'email' =>trim($request->email),
+            'password' => Hash::make(trim($request->password)),
+            'phoneNo' => trim($request->phoneNo),
+            'shopName'=> trim($request->shopName),
+            'location'=> trim($request->location),
+        ]);
+        
+        return view('admin.supplierDashboard')->with('status','Added a new printing supplier');
+    }
+
+    public function editSupplier($id){
+        $user = Supplier::find($id);
 
         return view('admin.editUser')->with('userID',$id)->with('user',$user);
 
     }
 
-    public function editUserName(Request $request)
+    public function editSupplierName(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -50,7 +68,7 @@ class SupplierController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find($request->userID);
+        $user = Supplier::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->name = trim($request->name);
@@ -63,7 +81,7 @@ class SupplierController extends Controller
 
     }
 
-    public function editUserEmail(Request $request)
+    public function editSupplierEmail(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -72,7 +90,7 @@ class SupplierController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find($request->userID);
+        $user = Supplier::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->email = trim($request->email);
@@ -85,7 +103,7 @@ class SupplierController extends Controller
 
     }
 
-    public function editUserPassword(Request $request)
+    public function editSupplierPassword(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -95,7 +113,7 @@ class SupplierController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find($request->userID);
+        $user = Supplier::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->password = Hash::make(trim($request->password));
@@ -108,7 +126,7 @@ class SupplierController extends Controller
 
     }
 
-    public function editUserPhoneNo(Request $request)
+    public function editSupplierPhoneNo(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
@@ -118,7 +136,7 @@ class SupplierController extends Controller
 
         //UPDATE USER
         //GET the User 
-        $user = User::find($request->userID);
+        $user = Supplier::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->phoneNo = trim($request->phoneNo);
@@ -131,16 +149,16 @@ class SupplierController extends Controller
 
     }
 
-    public function editUserProgrammeID(Request $request)
+    public function editSupplierShopName(Request $request)
     {
         //VALIDATE INPUT
         $this->validate($request, [
-            'programmeID' => ['string', 'nullable'],
+            'shopName' => ['string', 'required'],
         ]);
 
         //UPDATE USER
         //GET the User 
-        $user = User::find($request->userID);
+        $user = Supplier::find($request->userID);
 
         //ASSIGN the new data to the user 
         $user->programmeID = trim($request->programmeID);
@@ -153,16 +171,38 @@ class SupplierController extends Controller
 
     }
 
-    public function deleteUser($id){
+    public function editSupplierLocation(Request $request)
+    {
+        //VALIDATE INPUT
+        $this->validate($request, [
+            'location' => ['string', 'required'],
+        ]);
+
+        //UPDATE USER
+        //GET the User 
+        $user = Supplier::find($request->userID);
+
+        //ASSIGN the new data to the user 
+        $user->programmeID = trim($request->programmeID);
+
+        //STORE the new data into database
+        $user->save();
+
+        //REDIRECT ROUTE
+        return back()->with('updated', 'Programme updated');
+
+    }
+
+    public function deleteSupplier($id){
 
         //GET the User by id
-        $user = User::find($id);
+        $user = Supplier::find($id);
 
         //DELETE the user
         $user->delete();
 
         //REDIRECT ROUTE (To do the delete confirmation page)
-        return redirect()->route('usersDashboard');
+        return redirect()->route('supplierDashboard')->with('delete','Supplier Deleted');
     }
 
     

@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Add New Supplier') }}</div>
+                <div class="card-header">{{ __('Add New Admin') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('addedSupplierAccount') }}">
+                    <form method="POST" action="{{ route('addedAdminAccount') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -73,37 +73,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="shopName" class="col-md-4 col-form-label text-md-end">{{ __('Shop Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="shopName" type="text" class="form-control @error('shopName') is-invalid @enderror" name="shopName" value="{{ old('shopName') }}" required autocomplete="shopName" placeholder="e.g Panda Printing Shop">
-
-                                @error('shopName')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="location" class="col-md-4 col-form-label text-md-end">{{ __('location') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="location" type="textbox" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') }}" required autocomplete="location" placeholder="e.g No99, Building Jalan 9 Kuala Lumpur">
-
-                                @error('location')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        
+                        </div>                        
 
                         <div class="row mb-0">
                             <div class="col-md-1 offset-md-4">
@@ -112,7 +82,7 @@
                                 </button>
                             </div>
                             <div class="col-md-1">
-                                <a href="{{ route('suppliersDashboard') }}" class="btn btn-danger " >Cancel</a>
+                                <a href="{{ route('adminDashboard') }}" class="btn btn-danger " >Cancel</a>
                             </div>
                         </div>
                     </form>

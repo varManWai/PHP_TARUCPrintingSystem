@@ -8,7 +8,11 @@
                     <div class="col-md-10 ">
                         <div class="card mt-3">
 
-
+                            @if (session('delete'))
+                                <div class="alert alert-danger">
+                                    {{ session('delete') }}
+                                </div>
+                            @endif
 
                             <div class="card-header ">Users Account Management</div>
 
@@ -53,16 +57,18 @@
                                                     </td>
                                                     <td class="">
 
-                                                        <a href="\editUserAccount\{{$user->id}}" class="btn btn-primary">Edit</a>
+                                                        <a href="\editUserAccount\{{ $user->id }}"
+                                                            class="btn btn-primary">Edit</a>
                                                     </td>
                                                     <td class="">
-                                                        <a href="\deleteUserAccount\{{ $user->id }}" class="btn btn-danger">Delete</a>
+                                                        <a href="\deleteUserAccount\{{ $user->id }}"
+                                                            class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>
                                                 @php
                                                     $i++;
                                                 @endphp
-                                                @endforeach
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 @endif
