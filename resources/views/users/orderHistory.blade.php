@@ -70,6 +70,9 @@
         @endphp
         @endforeach
     </div>
+    <div class="text-center mt-3">
+        <a href="/xmlOrderHistory" target="_blank" class="btn btn-secondary" role="button">Generate as XML to Print</a>
+    </div>
     @endif
     @endif
 </div>

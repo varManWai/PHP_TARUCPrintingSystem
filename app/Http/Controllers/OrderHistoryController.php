@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Spatie\ArrayToXml\ArrayToXml;
 
 class OrderHistoryController extends Controller
 {
@@ -37,9 +38,24 @@ class OrderHistoryController extends Controller
         
         return $orderData;
     }
+
+    public function loadXML(){
+        
+        $xml = new \DOMDocument();
+        $xml->load('xsl\orderHistory.xml');
+
+        $xsl = new \DOMDocument();
+        $xsl->load('xsl\orderHistories.xsl');
+
+        $proc = new \XSLTProcessor();
+
+        $proc->importStyleSheet($xsl);
+
+        echo $proc->transformToXML($xml);
+    }
     
     public function createXMLfile($datas){
-        $filePath = '../resources/XML/orderHistory.xml';
+        $filePath = '../public/xsl/orderHistory.xml';
         $dom     = new \DOMDocument('1.0', 'utf-8'); 
         $dom->appendChild($dom->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="orderHistories.xsl"'));
         $root      = $dom->createElement('orderHistories'); 

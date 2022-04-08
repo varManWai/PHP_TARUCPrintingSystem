@@ -81,6 +81,7 @@ Route::post('/deleteAccount', [UsersController::class, 'deletedAccount'])->name(
 
 //OrderHistory
 Route::get('/orderHistory', [OrderHistoryController::class, 'index'])->name('orderHistory');
+Route::get("/xmlOrderHistory", [OrderHistoryController::class,'loadXML']);
 
 //Home Page
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -93,12 +94,14 @@ Route::group(['middleware' => ['web','auth:admin'], 'prefix' => 'admins'], funct
         return view('report.report');
     });
 
-    Route::get('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
-    Route::get('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
-    Route::get('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
-    Route::post('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
-    Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
-    Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
+
+
+Route::get('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
+Route::get('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
+Route::get('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
+Route::post('/generateDaily', [ReportController::class, 'generateDaily'])->name('generateDaily');
+Route::post('/generateMonthly', [ReportController::class, 'generateMonthly'])->name('generateMonthly');
+Route::post('/generateYearly', [ReportController::class, 'generateYearly'])->name('generateYearly');
 
 //User Acc Dashboard
     Route::get('/usersDashboard', [AdminController::class, 'index'])->name('usersDashboard');
