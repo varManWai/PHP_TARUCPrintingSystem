@@ -1,20 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.supplier')
 
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <div class="container">
-    @if ($auth==0)
-    <div class="row mt-4 justify-content-center">
-        <div class="col"></div>
-        <div class="col-8 text-center">
-            <img src="{{url('/image/Restrict.png')}}" alt="">
-            <h1 style="color: red" class="text-center mt-3"><b>WARNING!!!</b></h1>
-            <h1 style="color: red" class="text-center"><b>RESTRICTED AREA</b></h1>
-            <h2 style="color: red" class="text-center">AUTHORIZED PERSONNEL ONLY</h2>
-        </div>
-        <div class="col"></div>
-    </div>
-    @else
     <div class="row gy-5">
         <div class="col"></div>
         <div class="col-8 pt-3 rounded-3 pb-3 shadow">
@@ -322,7 +310,6 @@
         </div>
         <div class="col"></div>
     </div>
-    @endif
 </div>
 
 
