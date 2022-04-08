@@ -1,5 +1,6 @@
 <?php
-// Author:ChanOwen
+// Author:Lai Man Wai 
+
 namespace App\Http\Controllers;
 
 use App\Models\User;

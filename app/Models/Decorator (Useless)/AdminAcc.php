@@ -1,17 +1,20 @@
 <?php
+// Author:Lai Man Wai 
 
-class StudentAcc extends AccDecorator
+class adminAcc extends AccDecorator
 {
-    private $studentID;
+    private $adminID;
     private $programmeID;
     private $accStatus;
 
-    public function __construct($studentID, $name, $phoneNo, $email, $password, $timestamp, $programmeID, $accStatus)
+    public function __construct($adminID, $name, $phoneNo, $email, $password, $timestamp, $programmeID, $accStatus)
     {
-        parent::__construct($name, $phoneNo, $email, $password, $timestamp);
-        $this->studentID = $studentID;
+        
+        $this->adminID = $adminID;
         $this->programmeID = $programmeID;
         $this->accStatus = $accStatus;
+
+        
     }
 
     public function loginAcc($email, $password)
@@ -21,11 +24,11 @@ class StudentAcc extends AccDecorator
 
     public function getStudentID()
     {
-        return $this->studentID;
+        return $this->adminID;
     }
-    public function setStudentID($studentID)
+    public function setStudentID($adminID)
     {
-        $this->studentID = $studentID;
+        $this->adminID = $adminID;
     }
 
     public function getProgrammeID()
