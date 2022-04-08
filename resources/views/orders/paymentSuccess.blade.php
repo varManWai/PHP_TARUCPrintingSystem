@@ -1,4 +1,4 @@
-{{-- Author: Nizar Bin Hamid --}}
+{{-- Author: Nizar Bin Hamid, Chan Owen --}}
 @extends('layouts.app')
 
 @section('content')

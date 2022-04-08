@@ -14,7 +14,7 @@ author: Ho Wai Kit
                         
                         <div class="col-md-10 ">
                             @if($errors->any())
-                                <p class="text-center">{{$errors->first()}}</p>
+                                <p class="text-center text-danger">{{$errors->first()}}</p>
                             @endif                                                     
                         </div>
                        

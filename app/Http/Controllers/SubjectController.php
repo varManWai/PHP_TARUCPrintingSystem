@@ -6,13 +6,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\ArrayToXml\ArrayToXml;
+use Validator;
 
 use \PDO;
 
 class SubjectController 
 {
     public function index(){
-
             $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
             $stmt = $pdo->prepare("SELECT * from programme");
             $stmt->execute();
@@ -25,6 +25,14 @@ class SubjectController
     }
     
     public function store(Request $request){
+        
+        $validated = Validator::make($request->all(),[            
+            'image' => 'required|mimes:png,jpg,jpeg'            
+        ]);
+
+        if ($validated->fails()) {
+            return redirect()->back()->withErrors($validated);
+        }
         
         $cc = $request->input('courseCode');
         $title = $request->input('title');
@@ -64,7 +72,7 @@ class SubjectController
         $stmt1->bindParam('image', $subjectImage);
         $stmt1->execute();
 
-    // get the subject id after inserting
+        // get the subject id after inserting
         $stmt2 = $pdo->prepare("SELECT subjectID FROM subject ORDER BY subjectID DESC LIMIT 1");
         $stmt2->execute();
         $actualSubjectID = $stmt2->fetchColumn();    
