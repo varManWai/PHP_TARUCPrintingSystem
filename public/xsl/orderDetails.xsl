@@ -43,6 +43,16 @@
                 </xsl:attribute>
                 <xsl:text>Proceed to Payment</xsl:text>
             </xsl:element>
+            <span class="px-2"></span>
+            <xsl:element name="a">
+                <xsl:attribute name="href">
+                    <xsl:text>/cart</xsl:text>
+                </xsl:attribute>
+                <xsl:attribute name="class">
+                <xsl:text>btn btn-primary</xsl:text>
+                </xsl:attribute>
+                <xsl:text>Cancel</xsl:text>
+            </xsl:element>
         </div> 
         <div class="col-3 ">
         </div> 

@@ -14,6 +14,7 @@
                 </select>
                 <input type="hidden" id="totalPrice" name="totalPrice" value="{{ $totalPrice }}">
             </form>
+            <a href="{{ route('Cart') }}" class="btn btn-primary"> <strong>Cancel</strong> </a>
         </div>
         <div class="col-6"></div>
         <div class="col">
