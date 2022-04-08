@@ -52,9 +52,9 @@
                                                             <img src="{{ asset('storage/image/subjects/'.$fileName.'') }}" class="card-img-top" alt="...">
                                                         </div>
                                                     </td>                                                  
-                                                    <td class="">
+                                                    <!-- <td class="">
                                                         <a href="\editProgramme\{$subject['subjectid']}}" class="btn btn-primary">Edit</a>
-                                                    </td>    
+                                                    </td>     -->
                                                 </tr>                                              
                                                 @php
                                                     $i++;

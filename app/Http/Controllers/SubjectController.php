@@ -71,7 +71,7 @@ class SubjectController
             $stmt3->execute();
         }        
         
-        return redirect()->back()->withErrors(['message' => 'Subject has been created']);
+        return $this->retrieve();            
     }
 
     public function retrieve(){

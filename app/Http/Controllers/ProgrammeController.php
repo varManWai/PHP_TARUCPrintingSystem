@@ -38,10 +38,9 @@ class ProgrammeController
         $stmt->bindParam('programmeID',  $programmeID);
         $stmt->bindParam('name', $programmeName);
         $stmt->bindParam('facultyID',  $faculty);
-
         
         if($stmt->execute()){
-            return redirect()->back()->withErrors(['message' => 'Programme has been created']);
+            return $this->retrieve();
         }else {
             return redirect()->back()->withErrors(['message' => 'Try again']);
         }

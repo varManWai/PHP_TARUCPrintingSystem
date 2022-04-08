@@ -26,12 +26,12 @@ class FacultyController
         $stmt = $pdo->prepare("INSERT INTO faculty (facultyID, name) VALUES (:facultyID, :name)");
         $stmt->bindParam('facultyID',  $facultyID);
         $stmt->bindParam('name', $facultyName);
-        
         if($stmt->execute()){            
-            return redirect()->back()->withErrors(['message' => 'Faculty has been created']);
+            return $this->retrieve();
         }else {
             return redirect()->back()->withErrors(['message' => 'Try again']);
-        }                
+        } 
+                     
     }
 
     public function retrieve(){
