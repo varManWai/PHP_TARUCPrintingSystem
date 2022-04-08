@@ -183,7 +183,7 @@
 
                                 <div class="d-flex justify-content-center my-5">
                                     <div class="col-md-2">
-                                        <a href="\deleteAdminAccount\{{ $user->id }}" class="btn btn-danger " >Delete Account</a>
+                                        <a href="{{ route('deleteAdminAccount', ['id' => $user->id]) }}" class="btn btn-danger " >Delete Account</a>
                                     </div>
                                     <div class="col-md-1">
                                         <a href="{{ route('adminDashboard') }}" class="btn btn-dark " >Back</a>

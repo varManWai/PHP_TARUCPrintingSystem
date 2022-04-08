@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.supplier')
 
 @section('content')
     <main>
@@ -14,55 +14,54 @@
                                 </div>
                             @endif
 
-                            <div class="card-header ">Users Account Management</div>
+                            <div class="card-header ">Supplier Account Management</div>
 
                             <div class="card-body table-responsive-xl">
-                                @if (count($users) == 0)
+                                @if (count($orders) == 0)
                                     <h2>Nothing here</h2>
                                 @else
                                     <table class="table  table-hover">
                                         <thead>
                                             <tr class="">
                                                 <th scope="col" class="">No</th>
-                                                <th scope="col" class="">Name</th>
-                                                <th scope="col" class="">Email</th>
-                                                <th scope="col" class="">Phone No.</th>
-                                                <th scope="col" class="">Created At</th>
-                                                <th scope="col" class="">Programme</th>
+                                                <th scope="col" class="">ID</th>
+                                                <th scope="col" class="">Amount</th>
+                                                <th scope="col" class="">Date</th>
+                                                <th scope="col" class="">Status</th>
+                                                <th scope="col" class="">Delivery method</th>
+                                                <th scope="col" class="">User</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php
                                                 $i = 1;
                                             @endphp
-                                            @foreach ($users as $user)
+                                            @foreach ($orders as $order)
                                                 <tr class="">
                                                     <td class="">
                                                         {{ $i }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->name }}
+                                                        {{ $order->orderID }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->email }}
+                                                        {{ $order->totalPrice }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->phoneNo }}
+                                                        {{ $order->date }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->created_at }}
+                                                        {{ $order->status }}
                                                     </td>
                                                     <td class="">
-                                                        {{ $user->programmeName }}
+                                                        {{ $order->pickUpMethod }}
                                                     </td>
                                                     <td class="">
-
-                                                        <a href="{{ route('editUserAccount', ['id' => $user->id]) }}"
-                                                            class="btn btn-primary">Edit</a>
+                                                        {{ $order->username}}
                                                     </td>
                                                     <td class="">
-                                                        <a href="{{ route('deleteUserAccount', ['id' => $user->id]) }}"
-                                                            class="btn btn-danger">Delete</a>
+                                                        <a href="{{ route('editOrderStatus', ['id' => $order->orderID]) }}"
+                                                            class="btn btn-dark">Edit Status</a>
                                                     </td>
                                                 </tr>
                                                 @php

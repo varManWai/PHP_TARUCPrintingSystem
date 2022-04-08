@@ -1,14 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.supplier')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Staff Login') }}</div>
+                    <div class="card-header">{{ __('Supplier Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('adminLogin') }}">
+                        <form method="POST" action="{{ route('supplierLogin') }}">
                             @csrf
 
                             @if (session('status'))
@@ -71,7 +71,7 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-dark">
                                         {{ __('Login') }}
                                     </button>
                                 </div>
@@ -81,8 +81,8 @@
 
                             <div class="row mb-0 ">
                                 <div class="col-md-4 offset-md-5">
-                                    <a href="{{ route('login') }}" style="text-align: center">Student</a> OR <a
-                                        href="{{ route('supplierLogin') }}" style="text-align: center">Supplier</a>
+                                    <a href="{{ route('adminLogin') }}" style="text-align: center">Staff</a> OR <a
+                                        href="{{ route('login') }}" style="text-align: center">Student</a>
                                 </div>
                             </div>
                         </form>

@@ -65,11 +65,11 @@
                                                         {{ $supplier->location }}
                                                     </td>
                                                     <td class="">
-                                                        <a href="\editSupplierAccount\{{ $supplier->id }}"
+                                                        <a href="{{ route('editSupplierAccount', ['id' => $supplier->id]) }}"
                                                             class="btn btn-primary">Edit</a>
                                                     </td>
                                                     <td class="">
-                                                        <a href="\deleteSupplierAccount\{{ $supplier->id }}"
+                                                        <a href="{{ route('deleteSupplierAccount', ['id' => $supplier->id]) }}"
                                                             class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>

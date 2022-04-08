@@ -60,11 +60,11 @@
                                                     </td>
                                                     <td class="">
 
-                                                        <a href="\editAdminAccount\{{ $admin->id }}"
+                                                        <a href="{{ route('editAdminAccount', ['id' => $admin->id]) }}"
                                                             class="btn btn-primary">Edit</a>
                                                     </td>
                                                     <td class="">
-                                                        <a href="\deleteAdminAccount\{{ $admin->id }}"
+                                                        <a href="{{ route('deleteAdminAccount', ['id' => $admin->id]) }}"
                                                             class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>

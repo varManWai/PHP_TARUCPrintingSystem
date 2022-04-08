@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 use Illuminate\Support\Facades\Session;
 
-class AdminLoginController extends Controller
+class SupplierLoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -48,16 +48,19 @@ class AdminLoginController extends Controller
 
     public function index()
     {
-        return view('admin.login');
+        return view('supplier.supplierLogin');
     }
 
     public function store(Request $request)
     {
-
-        if(!Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
-            return redirect()->route('adminLogin')->with('danger','Invalid Supplier Details');
+        
+        if(!Auth::guard('supplier')->attempt($request->only('email','password'),$request->filled('remember'))){
+            return redirect()->route('supplierLogin')->with('danger','Invalid Supplier Details');
+            
         }
 
-        return redirect()->intended(route('adminDashboard'));
+        return redirect()->route('orderStatusDashboard');
+
+        
     }
 }

@@ -14,7 +14,20 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        
+    }
+
+    public function adminLogout(Request $request){
+        if(Auth::guard('admin')->check()) // this means that the admin was logged in.
+        {
+            Auth::guard('admin')->logout();
+            return redirect()->route('adminLogin');
+        }
+    
+        $this->guard()->logout();
+        $request->session()->invalidate();
+    
+        return $this->loggedOut($request) ?: redirect()->route('adminLogin');
     }
 
     public function index()

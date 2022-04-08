@@ -260,7 +260,7 @@
 
                                 <div class="d-flex justify-content-center my-5">
                                     <div class="col-md-2">
-                                        <a href="\deleteSupplierAccount\{{ $user->id }}" class="btn btn-danger " >Delete Account</a>
+                                        <a href="{{ route('deleteSupplierAccount', ['id' => $user->id]) }}" class="btn btn-danger " >Delete Account</a>
                                     </div>
                                     <div class="col-md-1">
                                         <a href="{{ route('suppliersDashboard') }}" class="btn btn-dark " >Back</a>

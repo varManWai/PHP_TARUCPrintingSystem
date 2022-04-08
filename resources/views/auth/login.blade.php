@@ -71,9 +71,11 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4 mt-3">
-                                    <a href="/adminLogin" class="">Staff</a>
+                            <hr>
+
+                            <div class="row mb-0 " >
+                                <div class="col-md-4 offset-md-5" >
+                                    <a href="{{ route('adminLogin') }}" style="text-align: center">Staff</a> OR <a href="{{ route('supplierLogin') }}" style="text-align: center">Supplier</a>
                                 </div>
                             </div>
                         </form>
