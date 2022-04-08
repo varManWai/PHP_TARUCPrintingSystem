@@ -46,6 +46,19 @@ class ProgrammeController
             return redirect()->back()->withErrors(['message' => 'Try again']);
         }
     }
+
+    public function retrieve(){
+
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $stmt = $pdo->prepare("SELECT  programme.programmeID, programme.name AS programme_name, faculty.name AS faculty_name from programme , faculty where programme.facultyID=faculty.facultyID");
+        $stmt->execute();
+        $programmeArr = $stmt->fetchAll();
+        return view('admin.programmeDashboard')->with('programmes',$programmeArr);        
+    }
+
+    
 }
 
 class Programme 

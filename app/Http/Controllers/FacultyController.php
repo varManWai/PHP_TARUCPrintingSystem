@@ -33,6 +33,21 @@ class FacultyController
             return redirect()->back()->withErrors(['message' => 'Try again']);
         }                
     }
+
+    public function retrieve(){
+
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $stmt = $pdo->prepare("SELECT * FROM faculty");
+        $stmt->execute();
+        $facultyArr;
+        while($row = $stmt->fetch()){
+            $facultyArr[$row['facultyID']] = $row['name'];
+        }
+        return view('admin.facultyDashboard')->with('faculties',$facultyArr);
+        
+    }
 }
 
 class Faculty

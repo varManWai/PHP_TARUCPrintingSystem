@@ -74,6 +74,18 @@ class SubjectController
         return redirect()->back()->withErrors(['message' => 'Subject has been created']);
     }
 
+    public function retrieve(){
+
+        //Connect to the MySQL database using the PDO object.
+        $pdo = new PDO('mysql:host=localhost;dbname=taruc_printing_system', 'root', '');
+
+        $stmt = $pdo->prepare("SELECT * FROM subject");
+        $stmt->execute();
+        $subjectArr = $stmt->fetchAll();
+        return view('admin.subjectDashboard')->with('programmes',$subjectArr);         
+        
+    }
+
 }
 
 class SubjectDetails
